@@ -1,7 +1,7 @@
 {
   "name": "louxor",
   "version": "1.0.0",
-  "description": "",
+  "description": "A web player frontend for MPD",
   "main": "index.js",
   "scripts": {
     "prestart": "npm run build",
