@@ -1,13 +1,14 @@
 import React from 'react'
 import { connect } from 'react-redux'
 
-import Cover from './Cover'
+import { BackgroundCover, Cover } from './Cover'
 import CurrentSong from './CurrentSong'
 
 class App extends React.Component {
   render () {
 		return (
 			<div className="app">
+				<BackgroundCover song={this.props.currentSong} />
 				<div className="col-a">
 					<Cover song={this.props.currentSong} />
 				</div>

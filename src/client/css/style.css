@@ -25,9 +25,23 @@ body {
 	top: 0;
 }
 
+.background-cover {
+	background: no-repeat center center fixed;
+	background-size: cover;
+	bottom: 0;
+	filter: blur(10px) contrast(200%) brightness(2);
+	left: 0;
+	opacity: 0.2;
+	position: absolute;
+	right: 0;
+	top: 0;
+	transition: opacity 0.1s ease-in;
+	z-index: -1;
+}
+
 .cover {
 	margin: 0 auto;
-	perspective: 1000;
+	perspective: 1000px;
 }
 
 .cover img {
