@@ -16,6 +16,32 @@ body {
 	font-family: sans;
 }
 
+.app {
+	bottom: 0;
+	display: flex;
+	left: 0;
+	position: absolute;
+	right: 0;
+	top: 0;
+}
+
+.cover {
+	margin: 0 auto;
+	perspective: 1000;
+}
+
+.cover img {
+	border: 10px solid rgba(255, 255, 255, 0.05);
+	border-radius: 5px;
+	box-shadow: 0px 5px 20px rgba(0, 0, 0, 0.4);
+	height: 700px;
+	position: relative;
+	transform: perspective(1000px) rotateY(5deg);
+	transform-style: preserve-3d;
+	transition: transform 0.3s ease-in;;
+	width: 700px;
+}
+
 .current-song {
 	min-height: 260px;
 	text-shadow: 0px 5px 5px rgba(0, 0, 0, 0.3);
@@ -39,4 +65,10 @@ body {
 
 .current-song-date {
 	margin-right: 1em;
+}
+
+.col-a, .col-b {
+	align-items: center;
+	display: flex;
+	flex-basis: 50%;
 }
