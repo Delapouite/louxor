@@ -29,7 +29,6 @@ body {
 	background: no-repeat center center fixed;
 	background-size: cover;
 	bottom: 0;
-	filter: blur(10px) contrast(200%) brightness(2);
 	left: 0;
 	opacity: 0.2;
 	position: absolute;
@@ -52,7 +51,7 @@ body {
 	position: relative;
 	transform: perspective(1000px) rotateY(5deg);
 	transform-style: preserve-3d;
-	transition: transform 0.3s ease-in;;
+	transition: transform 0.3s ease-in;
 	width: 700px;
 }
 
@@ -68,8 +67,23 @@ body {
 	margin-bottom: 0.2em;
 }
 
-.current-song-artist {
+.current-song-youtube {
+	background: #e00;
+	border-radius: 10px;
 	color: #fff;
+	display: none;
+	font-size: .5em;
+	margin-left: 0.5em;
+	padding: 0 .2em 0 .5em;
+	text-align: center;
+	text-decoration: none;
+}
+
+.current-song-title:hover .current-song-youtube {
+	display: inline-block;
+}
+
+.current-song-artist {
 	display: block;
 	font-weight: normal;
 	font-size: 2em;
