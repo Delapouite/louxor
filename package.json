@@ -1,0 +1,28 @@
+{
+  "name": "louxor",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "start": "node index.js"
+  },
+  "keywords": [
+    "mpd"
+  ],
+  "author": "Delapouite <delapouite@gmail.com> (http://delapouite.com)",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/delapouite/louxor.git"
+  },
+  "bugs": {
+    "url": "https://github.com/delapouite/louxor/issues"
+  },
+  "homepage": "https://github.com/delapouite/louxor",
+  "license": "ISC",
+  "dependencies": {
+    "debug": "^2.2.0",
+    "express": "^4.14.0",
+    "mpcpp": "^1.0.1",
+    "socket.io": "^1.4.8"
+  }
+}

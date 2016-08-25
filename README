@@ -1,0 +1,13 @@
+# Louxor
+
+A web MPD player
+
+## Install
+
+`npm i`
+
+## Usage
+
+`npm start`
+
+Open `http://localhost:44190`

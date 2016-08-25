@@ -1,0 +1,15 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>Louxor</title>
+</head>
+<body>
+	<h1>Louxor</h1>
+	<script src="/socket.io/socket.io.js"></script>
+	<script>
+		var socket = io.connect()
+		socket.on('mpc.state', console.log)
+	</script>
+</body>
+</html>
