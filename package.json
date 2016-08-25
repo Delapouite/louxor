@@ -11,8 +11,10 @@
     "build": "NODE_ENV=production npm-run-all -p build:*",
     "build:css": "cp src/client/css/style.css build",
     "build:html": "cp src/client/index.html build",
-    "build:js": "browserify -t babelify src/client/js/index.js > build/bundle.js",
-    "postbuild:js": "uglifyjs build/bundle.js -o build/bundle.js"
+    "build:js": "browserify -t babelify src/client/js/index.js -o build/bundle.js",
+    "postbuild:js": "uglifyjs build/bundle.js -o build/bundle.js",
+    "watch": "npm-run-all -p watch:*",
+    "watch:js": "watchify -t babelify -o build/bundle.js src/client/js/index.js"
   },
   "keywords": [
     "mpd"
