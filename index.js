@@ -47,6 +47,6 @@ io.on('connection', (socket) => {
 
 // express
 
-app.use(express.static('src/client'))
+app.use(express.static('build'))
 
 server.listen(PORT)

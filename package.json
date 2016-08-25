@@ -4,7 +4,15 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-    "start": "node index.js"
+    "prestart": "npm run build",
+    "start": "npm run serve",
+    "serve": "node index.js",
+    "prebuild": "rm -rf build && mkdir build",
+    "build": "NODE_ENV=production npm-run-all -p build:*",
+    "build:css": "cp src/client/css/style.css build",
+    "build:html": "cp src/client/index.html build",
+    "build:js": "browserify -t babelify src/client/js/index.js > build/bundle.js",
+    "postbuild:js": "uglifyjs build/bundle.js -o build/bundle.js"
   },
   "keywords": [
     "mpd"
@@ -23,6 +31,18 @@
     "debug": "^2.2.0",
     "express": "^4.14.0",
     "mpcpp": "^1.0.1",
+    "react": "^15.3.1",
+    "react-dom": "^15.3.1",
+    "react-redux": "^4.4.5",
+    "redux": "^3.5.2",
     "socket.io": "^1.4.8"
+  },
+  "devDependencies": {
+    "babelify": "^7.3.0",
+    "browserify": "^13.1.0",
+    "npm-run-all": "^3.0.0",
+    "stylus": "^0.54.5",
+    "uglifyjs": "^2.4.10",
+    "watchify": "^3.7.0"
   }
 }
