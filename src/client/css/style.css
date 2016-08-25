@@ -2,7 +2,41 @@
   box-sizing: border-box;
 }
 
-body {
+html, body {
 	background: black;
-	color: #ddd;
+	background-size: cover;
+	margin: 0;
+	/* for out of bound tilt effect on small screen */
+	overflow: hidden;
+	padding: 0;
+}
+
+body {
+	color: #EEE;
+	font-family: sans;
+}
+
+.current-song {
+	min-height: 260px;
+	text-shadow: 0px 5px 5px rgba(0, 0, 0, 0.3);
+}
+
+.current-song-title {
+	display: block;
+	font-size: 4em;
+	letter-spacing: 0.1em;
+	margin-bottom: 0.2em;
+}
+
+.current-song-artist {
+	color: #fff;
+	display: block;
+	font-weight: normal;
+	font-size: 2em;
+	margin-bottom: 0.2em;
+	padding: 0;
+}
+
+.current-song-date {
+	margin-right: 1em;
 }

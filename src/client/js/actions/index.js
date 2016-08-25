@@ -1,0 +1,1 @@
+export const FETCH_MPC_STATE = 'FETCH_MPC_STATE'
