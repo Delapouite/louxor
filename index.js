@@ -59,27 +59,27 @@ const sendCover = (res, p) => res.sendFile(p, { root: MUSIC_ROOT })
 const sendDefaultCover = (res) => sendCover(res, '!/cover.jpg')
 
 app.get('/art/:songFile?', (req, res) => {
-  const { songFile } = req.params
-  if (!songFile) return sendDefaultCover(res)
+	const { songFile } = req.params
+	if (!songFile) return sendDefaultCover(res)
 
-  const dir = path.dirname(songFile)
-  // TODO handle FLAC
-  const coverPath = dir === '!'
-    ? dir + '/covers/' + path.basename(songFile, '.mp3')
-    : dir + '/cover'
+	const dir = path.dirname(songFile)
+	// TODO handle FLAC
+	const coverPath = dir === '!'
+		? dir + '/covers/' + path.basename(songFile, '.mp3')
+		: dir + '/cover'
 
-  const stats = COVER_FORMATS.map((ext) =>
-    new Promise((resolve, reject) => {
-      fs.stat(MUSIC_ROOT + coverPath + ext, (err) => {
-        if (err) reject(err); else resolve(ext)
-      })
-    })
-  )
+	const stats = COVER_FORMATS.map((ext) =>
+		new Promise((resolve, reject) => {
+			fs.stat(MUSIC_ROOT + coverPath + ext, (err) => {
+				if (err) reject(err); else resolve(ext)
+			})
+		})
+	)
 
-  Promise.some(stats, 1).then(([format]) => {
-    sendCover(res, coverPath + format)
-  })
-  .catch(() => sendDefaultCover(res))
+	Promise.some(stats, 1).then(([format]) => {
+		sendCover(res, coverPath + format)
+	})
+	.catch(() => sendDefaultCover(res))
 })
 
 server.listen(PORT)
