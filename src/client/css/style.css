@@ -37,7 +37,6 @@ body {
 	right: 0;
 	top: 0;
 	transition: opacity 0.1s ease-in;
-	z-index: -1;
 }
 
 .cover {

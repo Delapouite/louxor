@@ -1,16 +1,21 @@
 import React from 'react'
+import { connect } from 'react-redux'
 import classNames from 'classnames'
+
+import { togglePlay } from '../actions'
 
 const getCoverURL = (song) => song && song.file
 	? '/art/' + encodeURIComponent(song.file)
 	: '/art'
 
-export class BackgroundCover extends React.Component {
+class _BackgroundCover extends React.Component {
 	render() {
 		const style = { backgroundImage: 'url("' + getCoverURL(this.props.song) + '")' }
-		return <div className="background-cover" style={style}/>
+		return <div className="background-cover" style={style} onClick={() => this.props.togglePlay()}/>
 	}
 }
+
+export const BackgroundCover = connect(null, { togglePlay })(_BackgroundCover)
 
 export class Cover extends React.Component {
 	render () {

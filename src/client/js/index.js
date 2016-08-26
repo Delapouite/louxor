@@ -1,20 +1,17 @@
 import React from 'react'
 import ReactDOM from 'react-dom'
-import { createStore } from 'redux'
 import { Provider } from 'react-redux'
 
-import { FETCH_MPC_STATE } from './actions'
-import rootReducer from './reducers'
+import createStore from './store'
 import App from './components/App'
 
-const store = createStore(rootReducer)
+const initialState = {
+	status: {},
+	currentSong: {}
+}
+const store = createStore(initialState)
 
-const socket = io.connect()
-socket.on('mpc.state', (state) => {
-	store.dispatch({
-		type: FETCH_MPC_STATE, state
-	})
-})
+store.dispatch({ type: 'CONNECT' })
 
 ReactDOM.render(
 	<Provider store={store}>
