@@ -7,7 +7,8 @@ const express = require('express')
 const app = express()
 const server = require('http').Server(app)
 const io = require('socket.io')(server)
-const mpc = require('mpcpp').connect()
+const mpcpp = require('mpcpp')
+const mpc = mpcpp.connect()
 
 const log = ['mpc', 'io', 'express'].reduce((acc, d) => {
 	acc[d] = debug(d)
@@ -20,9 +21,11 @@ const COVER_FORMATS = ['.jpg', '.png']
 
 // mpc
 
-const state = {
-	status: {},
-	currentSong: {}
+const sendToMPD = (cmd) => {
+	log.io('mpc.command', cmd)
+	if (!mpcpp.COMMANDS.PLAYBACK.includes(cmd)) return
+
+	mpc[cmd]()
 }
 
 const getStatus = () => new Promise((resolve) => mpc.status((err, res) => resolve(res)))
@@ -33,11 +36,12 @@ const refresh = () =>
 		getStatus(),
 		getCurrentSong()
 	])
-	.then(([status, currentSong]) => Object.assign(state, { status, currentSong }))
+	.then(() => mpc.state)
 	.tap((state) => log.mpc('state', state))
 
 const broadcastRefresh = () =>
 	refresh().then((state) => io.emit('mpc.state', state))
+
 
 // init
 mpc
@@ -55,8 +59,9 @@ mpc
 io
 .on('connection', (socket) => {
 	log.io('new connection')
-	socket.emit('mpc.state', state)
+	socket.emit('mpc.state', mpc.state)
 	socket.on('disconnect', () => log.io('disconnection'))
+	socket.on('mpc.command', sendToMPD)
 })
 
 // express
