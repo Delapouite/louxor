@@ -11,6 +11,7 @@
     "build": "NODE_ENV=production npm-run-all -p build:*",
     "build:css": "cp src/client/css/style.css build",
     "build:html": "cp src/client/index.html build",
+    "build:images": "cp -r src/client/images build",
     "build:js": "browserify -t babelify src/client/js/index.js -o build/bundle.js",
     "postbuild:js": "uglifyjs build/bundle.js -o build/bundle.js",
     "watch": "npm-run-all -p watch:*",
@@ -31,6 +32,7 @@
   "license": "ISC",
   "dependencies": {
     "bluebird": "^3.4.3",
+    "classnames": "^2.2.5",
     "debug": "^2.2.0",
     "express": "^4.14.0",
     "mpcpp": "^1.0.1",

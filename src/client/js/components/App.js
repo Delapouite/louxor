@@ -10,7 +10,7 @@ class App extends React.Component {
 			<div className="app">
 				<BackgroundCover song={this.props.currentSong} />
 				<div className="col-a">
-					<Cover song={this.props.currentSong} />
+					<Cover song={this.props.currentSong} paused={this.props.status.paused} />
 				</div>
 				<div className="col-b">
 					<CurrentSong song={this.props.currentSong} />
