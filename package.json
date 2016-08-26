@@ -6,7 +6,7 @@
   "scripts": {
     "prestart": "npm run build",
     "start": "npm run serve",
-    "serve": "node index.js",
+    "serve": "DEBUG=mpc,io,express node index.js",
     "prebuild": "rm -rf build && mkdir build",
     "build": "NODE_ENV=production npm-run-all -p build:*",
     "build:css": "stylus src/client/css/style.css -o build",

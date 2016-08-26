@@ -9,7 +9,11 @@ const server = require('http').Server(app)
 const io = require('socket.io')(server)
 const mpc = require('mpcpp').connect()
 
-const logMpc = debug('mpc')
+const log = ['mpc', 'io', 'express'].reduce((acc, d) => {
+	acc[d] = debug(d)
+	return acc
+}, {})
+
 const PORT = 44190
 const MUSIC_ROOT = homedir() + '/music/'
 const COVER_FORMATS = ['.jpg', '.png']
@@ -30,6 +34,7 @@ const refresh = () =>
 		getCurrentSong()
 	])
 	.then(([status, currentSong]) => Object.assign(state, { status, currentSong }))
+	.tap((state) => log.mpc('state', state))
 
 const broadcastRefresh = () =>
 	refresh().then((state) => io.emit('mpc.state', state))
@@ -37,18 +42,21 @@ const broadcastRefresh = () =>
 // init
 mpc
 .on('ready', () => {
-	logMpc('ready')
+	log.mpc('ready')
 	broadcastRefresh()
 })
 .on('system', (sub) => {
-	logMpc('system', sub)
+	log.mpc('system', sub)
 	broadcastRefresh()
 })
 
 // io
 
-io.on('connection', (socket) => {
+io
+.on('connection', (socket) => {
+	log.io('new connection')
 	socket.emit('mpc.state', state)
+	socket.on('disconnect', () => log.io('disconnection'))
 })
 
 // express
@@ -77,9 +85,10 @@ app.get('/art/:songFile?', (req, res) => {
 	)
 
 	Promise.some(stats, 1).then(([format]) => {
+		log.express('cover', format)
 		sendCover(res, coverPath + format)
 	})
 	.catch(() => sendDefaultCover(res))
 })
 
-server.listen(PORT)
+server.listen(PORT, () => log.express(`Listening on port ${PORT}`))
