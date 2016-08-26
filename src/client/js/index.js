@@ -20,5 +20,5 @@ ReactDOM.render(
 	<Provider store={store}>
 		<App />
 	</Provider>,
-	document.getElementById('root')
+	document.body.appendChild(document.createElement('div'))
 )
