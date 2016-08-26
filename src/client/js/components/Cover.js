@@ -11,7 +11,7 @@ const getCoverURL = (song) => song && song.file
 class _BackgroundCover extends React.Component {
 	render() {
 		const style = { backgroundImage: 'url("' + getCoverURL(this.props.song) + '")' }
-		return <div className="background-cover" style={style} onClick={() => this.props.togglePlay()}/>
+		return <div className="background-cover" style={style} title="Toggle play" onClick={() => this.props.togglePlay()}/>
 	}
 }
 

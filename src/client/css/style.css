@@ -95,6 +95,31 @@ body {
 	}
 }
 
+.prev-song, .next-song {
+	border: 0;
+	cursor: pointer;
+	height: 100%;
+	opacity: 0;
+	outline: none;
+	position: absolute;
+	transition opacity .2s linear;
+	width: 150px;
+}
+
+.prev-song {
+	background: radial-gradient(ellipse at 0 50%, rgba(255, 255, 255, 0.3) 0%, rgba(255, 255, 255, 0) 60%);
+	left: 0;
+}
+
+.next-song {
+	background: radial-gradient(ellipse at 100% 50%, rgba(255, 255, 255, 0.3) 0%, rgba(255, 255, 255, 0) 60%);
+	right: 0;
+}
+
+.prev-song:hover, .next-song:hover {
+	opacity: 1;
+}
+
 .current-song {
 	min-height: 260px;
 	text-shadow: 0px 5px 5px rgba(0, 0, 0, 0.3);
