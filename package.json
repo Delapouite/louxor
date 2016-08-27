@@ -36,7 +36,7 @@
     "classnames": "^2.2.5",
     "debug": "^2.2.0",
     "express": "^4.14.0",
-    "mpcpp": "^1.1.0",
+    "mpcpp": "^1.2.0",
     "react": "^15.3.1",
     "react-dom": "^15.3.1",
     "react-redux": "^4.4.5",

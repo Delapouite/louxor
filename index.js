@@ -23,7 +23,8 @@ const COVER_FORMATS = ['.jpg', '.png']
 
 const sendToMPD = (cmd) => {
 	log.io('mpc.command', cmd)
-	if (!mpcpp.COMMANDS.PLAYBACK.includes(cmd)) return
+	if (!mpcpp.COMMANDS.PLAYBACK.includes(cmd)
+		&& !mpcpp.COMMANDS.OPTIONS_TOGGLES.includes(cmd)) return
 
 	mpc[cmd]()
 }
