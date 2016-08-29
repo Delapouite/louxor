@@ -15,7 +15,7 @@ class Player extends React.Component {
 					<button className="prev-song" title="Prev Song" onClick={() => this.props.prevSong()}></button>
 
 					<div className="col-a">
-						<Cover song={song} paused={status.paused} />
+						<Cover song={song} status={status} />
 					</div>
 
 					<div className="col-b">

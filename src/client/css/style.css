@@ -1,3 +1,5 @@
+$color = #eee
+
 * {
 	box-sizing: border-box;
 }
@@ -12,7 +14,7 @@ html, body {
 }
 
 body {
-	color: #EEE;
+	color: $color;
 	font-family: sans-serif;
 }
 
@@ -107,6 +109,14 @@ body {
 		transform: rotate(360deg);
 	}
 }
+
+.progress {
+	background: $color;
+	border-radius: 5px;
+	position: absolute;
+	transition: all 1s linear;
+}
+
 
 .prev-song, .next-song {
 	border: 0;
@@ -255,6 +265,6 @@ body {
 	font-weight: bold;
 
 	.cover-art {
-		border: 5px solid #eee;
+		border: 5px solid $color
 	}
 }

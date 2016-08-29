@@ -85,6 +85,9 @@ io
 
 // inject initial state in index.html
 app.get('/', (req, res) => {
+	// for elapsed time
+	refresh()
+
 	const title = trumpet()
 	title.select('title').createWriteStream()
 		.end(getTitle(mpc.state.status, mpc.state.currentSong))
