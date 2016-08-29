@@ -11,6 +11,8 @@ const mpcpp = require('mpcpp')
 const mpc = mpcpp.connect()
 const trumpet = require('trumpet')
 
+const { getTitle } = require('./src/shared/util')
+
 const log = ['mpc', 'io', 'express'].reduce((acc, d) => {
 	acc[d] = debug(d)
 	return acc
@@ -69,10 +71,13 @@ io
 
 // inject initial state in index.html
 app.get('/', (req, res) => {
-	const tr = trumpet()
-	tr.select('#louxor-state').createWriteStream()
+	const title = trumpet()
+	title.select('title').createWriteStream()
+		.end(getTitle(mpc.state.status, mpc.state.currentSong))
+	const state = trumpet()
+	state.select('#louxor-state').createWriteStream()
 		.end(`window.LOUXOR_STATE = ${JSON.stringify(mpc.state)}`)
-	fs.createReadStream(`${__dirname}/build/index.html`).pipe(tr).pipe(res)
+	fs.createReadStream(`${__dirname}/build/index.html`).pipe(title).pipe(state).pipe(res)
 })
 
 app.use(express.static('build'))
