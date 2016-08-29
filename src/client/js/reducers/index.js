@@ -1,4 +1,4 @@
-import { FETCH_MPC_STATE } from '../actions/'
+import { FETCH_MPC_STATE_SUCCESS } from '../actions/'
 
 const initialState = {
 	status: {},
@@ -7,7 +7,7 @@ const initialState = {
 
 export default (state = initialState, action) => {
 	switch (action.type) {
-		case FETCH_MPC_STATE:
+		case FETCH_MPC_STATE_SUCCESS:
 			return action.state
 		default:
 			return state

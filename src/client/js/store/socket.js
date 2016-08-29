@@ -1,5 +1,5 @@
 /* global io */
-import { CONNECT, SEND_MPC_COMMAND, fetchMpcState } from '../actions'
+import { CONNECT, SEND_MPC_COMMAND, SEND_MPC_QUERY, receiveMpcState, receiveResults } from '../actions'
 
 let socket = null
 
@@ -12,13 +12,23 @@ export default store => next => action => {
 
 			socket = io.connect()
 			socket.on('mpc.state', (state) => {
-				store.dispatch(fetchMpcState(state))
+				store.dispatch(receiveMpcState(state))
+			})
+			// after a query
+			socket.on('mpc.results', ({ command, results }) => {
+				store.dispatch(receiveResults(command, results))
 			})
 			break
 
+		// one shot
 		case SEND_MPC_COMMAND:
 			socket.emit('mpc.command', action.command)
 			break
+
+		// queries expect results
+		case SEND_MPC_QUERY:
+			socket.emit('mpc.query', action.command, action.args)
+			break;
 
 		default:
 			return next(action)

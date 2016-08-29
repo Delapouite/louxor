@@ -1,4 +1,7 @@
 import React from 'react'
+import { connect } from 'react-redux'
+
+import { fetchAlbums } from '../actions'
 
 class CurrentSong extends React.Component {
 	render () {
@@ -9,7 +12,9 @@ class CurrentSong extends React.Component {
 		return (
 			<div className="current-song">
 				<span className="current-song-title" title={track}>{title}</span>
-				<span className="current-song-artist">by {artist}</span>
+				<span className="current-song-artist">by&nbsp;
+					<span onClick={() => {this.props.fetchAlbums(artist)}}>{artist}</span>
+				</span>
 				<span className="current-song-album">{album}</span>
 				<span className="current-song-date">{date}</span>
 			</div>
@@ -17,4 +22,4 @@ class CurrentSong extends React.Component {
 	}
 }
 
-export default CurrentSong
+export default connect(null, { fetchAlbums })(CurrentSong)

@@ -24,12 +24,25 @@ const COVER_FORMATS = ['.jpg', '.png']
 
 // mpc
 
-const sendToMPD = (cmd) => {
+// no response needed
+const sendCommandToMPD = (cmd) => {
 	log.io('mpc.command', cmd)
-	if (!mpcpp.COMMANDS.PLAYBACK.includes(cmd)
-		&& !mpcpp.COMMANDS.OPTIONS_TOGGLES.includes(cmd)) return
+	const { PLAYBACK, OPTIONS_TOGGLES } = mpcpp.COMMANDS
+	const whiteList = [].concat(PLAYBACK, OPTIONS_TOGGLES)
+	if (!whiteList.includes(cmd)) return
 
 	mpc[cmd]()
+}
+
+const sendQueryToMPD = (socket) => (cmd, args = []) => {
+	log.io('mpc.query', cmd, args)
+	const whiteList = ['albums']
+	if (!whiteList.includes(cmd)) return
+
+	mpc[cmd](args[0], (err, results) => {
+		if (err) return
+		socket.emit('mpc.results', { command: cmd, results })
+	})
 }
 
 const getStatus = () => new Promise((resolve) => mpc.status((err, res) => resolve(res)))
@@ -64,7 +77,8 @@ io
 	log.io('new connection')
 	socket.emit('mpc.state', mpc.state)
 	socket.on('disconnect', () => log.io('disconnection'))
-	socket.on('mpc.command', sendToMPD)
+	socket.on('mpc.command', sendCommandToMPD)
+	socket.on('mpc.query', sendQueryToMPD(socket))
 })
 
 // express
