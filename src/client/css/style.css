@@ -19,10 +19,16 @@ body {
 .app {
 	bottom: 0;
 	display: flex;
+	flex-direction: column;
+	justify-content: space-around;
 	left: 0;
 	position: absolute;
 	right: 0;
 	top: 0;
+}
+
+.player {
+	display: flex;
 }
 
 .background-cover {
@@ -37,6 +43,7 @@ body {
 	right: 0;
 	top: 0;
 	transition: opacity 0.1s ease-in;
+	z-index: -1;
 }
 
 .cover {
@@ -60,8 +67,8 @@ body {
 
 @media (max-width: 1500px) {
 	.cover-tilt {
-		height: 600px;
-		width: 600px;
+		height: 500px;
+		width: 500px;
 	}
 }
 
@@ -208,4 +215,38 @@ body {
 	flex-basis: 35%;
 	flex-direction: column;
 	justify-content: center;
+}
+
+.albums {
+	display: flex;
+	justify-content: center;
+}
+
+.album {
+	margin-left: 1em;
+	text-align: center;
+	width: 100px;
+
+	.album-title {
+		overflow: hidden;
+		text-overflow: ellipsis;
+		white-space: nowrap;
+	}
+
+	.cover-art {
+		border: 5px solid rgba(255, 255, 255, 0.05);
+		display: block;
+		height: 100px;
+		width: 100px;
+	}
+}
+
+
+
+.current-album {
+	font-weight: bold;
+
+	.cover-art {
+		border: 5px solid rgba(255, 255, 255, 0.5);
+	}
 }

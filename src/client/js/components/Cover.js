@@ -1,7 +1,7 @@
 import React from 'react'
 import classNames from 'classnames'
 
-const getCoverURL = (song) => song && song.file
+export const getCoverURL = (song) => song && song.file
 	? '/art/' + encodeURIComponent(song.file)
 	: '/art'
 
