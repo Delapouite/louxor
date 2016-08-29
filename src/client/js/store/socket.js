@@ -22,7 +22,7 @@ export default store => next => action => {
 
 		// one shot
 		case SEND_MPC_COMMAND:
-			socket.emit('mpc.command', action.command)
+			socket.emit('mpc.command', action.command, action.args)
 			break
 
 		// queries expect results

@@ -120,11 +120,11 @@ body {
 }
 
 .prev-song {
-	background: radial-gradient(ellipse at 0 50%, rgba(255, 255, 255, 0.3) 0%, rgba(255, 255, 255, 0) 60%);
+	background: radial-gradient(ellipse at 0 50%, rgba(255, 255, 255, 0.4) 0%, rgba(255, 255, 255, 0) 60%);
 }
 
 .next-song {
-	background: radial-gradient(ellipse at 100% 50%, rgba(255, 255, 255, 0.3) 0%, rgba(255, 255, 255, 0) 60%);
+	background: radial-gradient(ellipse at 100% 50%, rgba(255, 255, 255, 0.4) 0%, rgba(255, 255, 255, 0) 60%);
 }
 
 .prev-song:hover, .next-song:hover {
@@ -223,11 +223,13 @@ body {
 }
 
 .album {
+	cursor: pointer;
 	margin-left: 1em;
 	text-align: center;
 	width: 100px;
 
 	.album-title {
+		margin-top: 5px;
 		overflow: hidden;
 		text-overflow: ellipsis;
 		white-space: nowrap;
@@ -241,12 +243,10 @@ body {
 	}
 }
 
-
-
 .current-album {
 	font-weight: bold;
 
 	.cover-art {
-		border: 5px solid rgba(255, 255, 255, 0.5);
+		border: 5px solid #eee;
 	}
 }

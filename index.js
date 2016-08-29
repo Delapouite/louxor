@@ -25,13 +25,13 @@ const COVER_FORMATS = ['.jpg', '.png']
 // mpc
 
 // no response needed
-const sendCommandToMPD = (cmd) => {
-	log.io('mpc.command', cmd)
+const sendCommandToMPD = (cmd, args) => {
+	log.io('mpc.command', cmd, args)
 	const { PLAYBACK, OPTIONS_TOGGLES } = mpcpp.COMMANDS
-	const whiteList = [].concat(PLAYBACK, OPTIONS_TOGGLES)
+	const whiteList = ['playId'].concat(PLAYBACK, OPTIONS_TOGGLES)
 	if (!whiteList.includes(cmd)) return
 
-	mpc[cmd]()
+	mpc[cmd](args ? args[0] : undefined)
 }
 
 const sendQueryToMPD = (socket) => (cmd, args = []) => {

@@ -18,6 +18,7 @@ export const receiveResults = (command, results) => {
 export const togglePlay = () => ({ type: SEND_MPC_COMMAND, command: 'toggle' })
 export const prevSong = () => ({ type: SEND_MPC_COMMAND, command: 'previous' })
 export const nextSong = () => ({ type: SEND_MPC_COMMAND, command: 'next' })
+export const playId = (id) => ({ type: SEND_MPC_COMMAND, command: 'playId', args: [id] })
 
 // mpc options
 export const toggleRandom = () => ({ type: SEND_MPC_COMMAND, command: 'random' })
