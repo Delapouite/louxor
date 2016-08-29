@@ -9,6 +9,7 @@ const server = require('http').Server(app)
 const io = require('socket.io')(server)
 const mpcpp = require('mpcpp')
 const mpc = mpcpp.connect()
+const trumpet = require('trumpet')
 
 const log = ['mpc', 'io', 'express'].reduce((acc, d) => {
 	acc[d] = debug(d)
@@ -43,7 +44,6 @@ const refresh = () =>
 const broadcastRefresh = () =>
 	refresh().then((state) => io.emit('mpc.state', state))
 
-
 // init
 mpc
 .on('ready', () => {
@@ -66,6 +66,14 @@ io
 })
 
 // express
+
+// inject initial state in index.html
+app.get('/', (req, res) => {
+	const tr = trumpet()
+	tr.select('#louxor-state').createWriteStream()
+		.end(`window.LOUXOR_STATE = ${JSON.stringify(mpc.state)}`)
+	fs.createReadStream(`${__dirname}/build/index.html`).pipe(tr).pipe(res)
+})
 
 app.use(express.static('build'))
 

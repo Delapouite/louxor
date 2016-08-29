@@ -42,7 +42,8 @@
     "react-redux": "^4.4.5",
     "redux": "^3.5.2",
     "socket.io": "^1.4.8",
-    "stylus": "^0.54.5"
+    "stylus": "^0.54.5",
+    "trumpet": "^1.7.2"
   },
   "devDependencies": {
     "babel-preset-es2015": "^6.14.0",

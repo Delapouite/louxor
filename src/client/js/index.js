@@ -5,11 +5,7 @@ import { Provider } from 'react-redux'
 import createStore from './store'
 import App from './components/App'
 
-const initialState = {
-	status: {},
-	currentSong: {}
-}
-const store = createStore(initialState)
+const store = createStore(window.LOUXOR_STATE)
 
 store.dispatch({ type: 'CONNECT' })
 
