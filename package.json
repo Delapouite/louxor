@@ -19,7 +19,9 @@
     "watch:js": "watchify -t babelify -o build/bundle.js src/client/js/index.js"
   },
   "keywords": [
-    "mpd"
+    "mpd",
+    "music",
+    "react"
   ],
   "author": "Delapouite <delapouite@gmail.com> (http://delapouite.com)",
   "repository": {
