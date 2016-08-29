@@ -162,7 +162,7 @@ body {
 	z-index: 1;
 }
 
-.controls button, .controls a {
+.controls button, .controls a, .controls-fullscreen {
 	align-items: center;
 	background: none;
 	border: none;
@@ -185,7 +185,7 @@ body {
 	margin-left: 1em;
 }
 
-.controls i {
+.controls i, .controls-fullscreen i {
 	font-size: 48px;
 	transition: all .2s linear;
 	vertical-align: middle;
@@ -193,6 +193,14 @@ body {
 
 .controls button:hover i {
 	text-shadow: 0px 5px 5px rgba(0, 0, 0, 0.6);
+}
+
+.controls-fullscreen {
+	margin: 0;
+	position: absolute;
+	right: 0;
+	top: 0;
+	z-index: 2;
 }
 
 .material-enabled {

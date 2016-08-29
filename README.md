@@ -29,6 +29,7 @@ It displays only basic info about the current song and the art cover from the as
 - Random / No Random
 - Open a youtube search to attempt finding a music clip
 - Previous / Next song (by clicking on each side of the screen, works well with tablets)
+- Fullscreen toggle
 
 ### Search
 

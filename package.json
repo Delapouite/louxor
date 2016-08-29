@@ -44,6 +44,7 @@
     "react-dom": "^15.3.1",
     "react-redux": "^4.4.5",
     "redux": "^3.5.2",
+    "screenfull": "^3.0.2",
     "socket.io": "^1.4.8",
     "stylus": "^0.54.5",
     "trumpet": "^1.7.2"
