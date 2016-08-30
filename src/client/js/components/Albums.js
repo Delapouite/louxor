@@ -2,7 +2,7 @@ import React from 'react'
 import { connect } from 'react-redux'
 import classNames from 'classnames'
 
-import { playId } from '../actions'
+import { closeAlbums, playId } from '../actions'
 import { getCoverURL } from './Cover'
 
 class Albums extends React.Component {
@@ -17,9 +17,13 @@ class Albums extends React.Component {
 						<div className="album-date">{a.date}</div>
 					</div>
 				)}
+
+				<button className="material-button close-albums" onClick={() => this.props.closeAlbums()}>
+					<i className="material-icons">close</i>
+				</button>
 			</div>
 		)
 	}
 }
 
-export default connect(null, { playId })(Albums)
+export default connect(null, { playId, closeAlbums })(Albums)

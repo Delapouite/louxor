@@ -1,20 +1,9 @@
-import { FETCH_MPC_STATE_SUCCESS, FETCH_ALBUMS_SUCCESS } from '../actions/'
+import { combineReducers } from 'redux'
 
-const initialState = {
-	status: {},
-	currentSong: {},
-	albums: []
-}
+import mpc from './mpc'
+import ui from './ui'
 
-export default (state = initialState, action) => {
-	switch (action.type) {
-		case FETCH_MPC_STATE_SUCCESS:
-			return Object.assign({}, state, action.state)
-
-		case FETCH_ALBUMS_SUCCESS:
-			return Object.assign({}, state, {albums: action.albums })
-
-		default:
-			return state
-	}
-}
+export default combineReducers({
+	mpc,
+	ui
+})

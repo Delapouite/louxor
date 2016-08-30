@@ -11,11 +11,19 @@ class Controls extends React.Component {
 
 		return (
 			<div className="controls">
-				<button onClick={() => this.props.togglePlay()}><i className="material-icons">
-					{ this.props.status.paused ? 'play_arrow' : 'pause' }
-				</i></button>
-				<button onClick={() => this.props.toggleRandom()}><i className={random}>shuffle</i></button>
-				<a href={youtube}><i className="material-icons">ondemand_video</i></a>
+				<button className="material-button" onClick={() => this.props.togglePlay()}>
+					<i className="material-icons">
+						{ this.props.status.paused ? 'play_arrow' : 'pause' }
+					</i>
+				</button>
+
+				<button className="material-button" onClick={() => this.props.toggleRandom()}>
+					<i className={random}>shuffle</i>
+				</button>
+
+				<a className="material-button" href={youtube}>
+					<i className="material-icons">ondemand_video</i>
+				</a>
 			</div>
 		)
 	}

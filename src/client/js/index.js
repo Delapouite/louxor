@@ -5,7 +5,7 @@ import { Provider } from 'react-redux'
 import createStore from './store'
 import App from './components/App'
 
-const store = createStore(window.LOUXOR_STATE)
+const store = createStore({ mpc: window.LOUXOR_STATE })
 
 store.dispatch({ type: 'CONNECT' })
 
