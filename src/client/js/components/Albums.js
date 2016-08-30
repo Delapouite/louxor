@@ -5,13 +5,13 @@ import classNames from 'classnames'
 import { closeAlbums, fetchAlbums, playId } from '../actions'
 import { getCoverURL } from './Cover'
 
-class Album extends React.Component {
+class _Album extends React.Component {
 	render () {
 		const { album, currentAlbum } = this.props
 		const cn = classNames('album', { 'current-album': currentAlbum === album.title })
 
 		return (
-			<div className={cn} onClick={() => playId(album.songs[0].id)}>
+			<div className={cn} onClick={() => this.props.playId(album.songs[0].id)}>
 				<img className="cover-art" src={getCoverURL(album.songs[0])} alt="cover" />
 				<div className="album-title">{album.title}</div>
 				<div className="album-date">{album.date}</div>
@@ -19,6 +19,8 @@ class Album extends React.Component {
 		)
 	}
 }
+
+const Album = connect(null, { playId })(_Album)
 
 class Albums extends React.Component {
 	componentWillMount () {
@@ -37,7 +39,7 @@ class Albums extends React.Component {
 		return (
 			<div className="albums">
 				{this.props.albums.map((a) =>
-					<Album key={a.title} album={a} currentAlbum={this.props.song.album} playId={playId} />
+					<Album key={a.title} album={a} currentAlbum={this.props.song.album} />
 				)}
 				<button key="close" className="material-button close-albums" onClick={() => this.props.closeAlbums()}>
 					<i className="material-icons">close</i>
@@ -49,4 +51,4 @@ class Albums extends React.Component {
 
 const mapStateToProps = (state) => ({ albums: state.mpc.albums })
 
-export default connect(mapStateToProps, { playId, closeAlbums, fetchAlbums })(Albums)
+export default connect(mapStateToProps, { closeAlbums, fetchAlbums })(Albums)
