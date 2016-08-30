@@ -14,7 +14,7 @@ class App extends React.Component {
 	}
 
   render () {
-		const { currentSong, status, albums } = this.props.mpc
+		const { currentSong, status } = this.props.mpc
 		const fullScreen = () => { if (screenfull.enabled) screenfull.request() }
 
 		return (
@@ -28,7 +28,7 @@ class App extends React.Component {
 
 					<Player song={currentSong} status={status} />
 
-					{ this.props.ui.albums && albums && albums.length ? <Albums albums={albums} currentAlbum={currentSong.album} /> : null }
+					{ this.props.ui.albums ? <Albums song={currentSong} /> : null }
 				</div>
 			</DocumentTitle>
 		)

@@ -1,7 +1,7 @@
 import React from 'react'
 import { connect } from 'react-redux'
 
-import { fetchAlbums } from '../actions'
+import { openAlbums } from '../actions'
 
 class CurrentSong extends React.Component {
 	render () {
@@ -13,7 +13,7 @@ class CurrentSong extends React.Component {
 			<div className="current-song">
 				<span className="current-song-title" title={track}>{title}</span>
 				<span className="current-song-artist">by&nbsp;
-					<span onClick={() => {this.props.fetchAlbums(artist)}}>{artist}</span>
+					<span onClick={() => {this.props.openAlbums()}}>{artist}</span>
 				</span>
 				<span className="current-song-album">{album}</span>
 				<span className="current-song-date">{date}</span>
@@ -22,4 +22,4 @@ class CurrentSong extends React.Component {
 	}
 }
 
-export default connect(null, { fetchAlbums })(CurrentSong)
+export default connect(null, { openAlbums })(CurrentSong)

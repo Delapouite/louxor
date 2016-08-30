@@ -7,6 +7,7 @@ export const FETCH_MPC_STATE_SUCCESS = 'FETCH_MPC_STATE_SUCCESS'
 export const FETCH_ALBUMS_SUCCESS = 'FETCH_ALBUMS_SUCCESS'
 
 // ui
+export const OPEN_ALBUMS = 'OPEN_ALBUMS'
 export const CLOSE_ALBUMS = 'CLOSE_ALBUMS'
 
 
@@ -31,4 +32,5 @@ export const toggleRandom = () => ({ type: SEND_MPC_COMMAND, command: 'random' }
 export const fetchAlbums = (artist) => ({ type: SEND_MPC_QUERY, command: 'albums', args: [artist] })
 
 // ui
+export const openAlbums = () => ({ type: OPEN_ALBUMS })
 export const closeAlbums = () => ({ type: CLOSE_ALBUMS })
