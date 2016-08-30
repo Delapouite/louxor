@@ -13,14 +13,22 @@ const trumpet = require('trumpet')
 
 const { getTitle } = require('./src/shared/util')
 
+const PORT = 44190
+const MUSIC_ROOT = homedir() + '/music/'
+const COVER_FORMATS = ['.jpg', '.png']
+
+;['status', 'currentSong'].forEach((f) => {
+	mpc[f] = Promise.promisify(mpc[f])
+})
+
+
+// debug
+
 const log = ['mpc', 'io', 'express'].reduce((acc, d) => {
 	acc[d] = debug(d)
 	return acc
 }, {})
 
-const PORT = 44190
-const MUSIC_ROOT = homedir() + '/music/'
-const COVER_FORMATS = ['.jpg', '.png']
 
 // mpc
 
@@ -45,13 +53,10 @@ const sendQueryToMPD = (socket) => (cmd, args = []) => {
 	})
 }
 
-const getStatus = () => new Promise((resolve) => mpc.status((err, res) => resolve(res)))
-const getCurrentSong = () => new Promise((resolve) => mpc.currentSong((err, res) => resolve(res)))
-
 const refresh = () =>
 	Promise.all([
-		getStatus(),
-		getCurrentSong()
+		mpc.status(),
+		mpc.currentSong()
 	])
 	.then(() => mpc.state)
 	.tap((state) => log.mpc('state', state))
@@ -78,6 +83,7 @@ mpc
 	}
 })
 
+
 // io
 
 io
@@ -88,6 +94,7 @@ io
 	socket.on('mpc.command', sendCommandToMPD)
 	socket.on('mpc.query', sendQueryToMPD(socket))
 })
+
 
 // express
 
