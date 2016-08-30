@@ -69,6 +69,14 @@ mpc
 	log.mpc('system', sub)
 	broadcastRefresh()
 })
+.on('error', (err) => {
+	if (err.code === 'ECONNREFUSED') {
+		console.error('Can\'t connect to MPD on port 6600. Make sure the daemon is running')
+		process.exit(1)
+	} else {
+		throw err
+	}
+})
 
 // io
 
