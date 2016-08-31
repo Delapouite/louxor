@@ -10,8 +10,19 @@ export const getCoverURL = (song) => song && song.file
 	? '/art/' + encodeURIComponent(song.file)
 	: '/art'
 
-export const BackgroundCover = ({ song }) =>
-	div('.background-cover', { style: { backgroundImage: 'url("' + getCoverURL(song) + '")' }})
+export class BackgroundCover extends React.Component {
+	// do not refresh if same album to avoid flash
+	shouldComponentUpdate (nextProps) {
+		// singles can have their own cover
+		if (nextProps.song.album === 'singles') return true
+
+		return this.props.song.album !== nextProps.song.album
+	}
+
+	render () {
+		return div('.background-cover', { style: { backgroundImage: 'url("' + getCoverURL(this.props.song) + '")' }})
+	}
+}
 
 class Progress extends React.Component {
 	constructor (props) {

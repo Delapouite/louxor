@@ -27,7 +27,7 @@ class Songs extends React.Component {
 					i('.material-icons', 'close')]),
 				ul(this.props.currentAlbum.songs.map((s) =>
 					li({ className: cx({ selected: this.props.song.title === s.title }),
-						key: s.title, onClick: () => this.props.playId(s.id) },
+						key: s.id, onClick: () => this.props.playId(s.id) },
 						[ span('.song-title', s.title), span('.song-duration', toHHMMSS(s.time)) ]))) ])
 		)
 	}
