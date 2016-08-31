@@ -1,6 +1,7 @@
 import React from 'react'
 import { connect } from 'react-redux'
-import classNames from 'classnames'
+import { default as cx } from 'classnames'
+import { button, div, h, i, img } from 'react-hyperscript-helpers'
 
 import { closeAlbums, fetchAlbums, playId } from '../actions'
 import { getCoverURL } from './Cover'
@@ -8,14 +9,13 @@ import { getCoverURL } from './Cover'
 class _Album extends React.Component {
 	render () {
 		const { album, currentAlbum } = this.props
-		const cn = classNames('album', { 'current-album': currentAlbum === album.title })
+		const cn = cx('album', { 'current-album': currentAlbum === album.title })
 
 		return (
-			<div className={cn} onClick={() => this.props.playId(album.songs[0].id)}>
-				<img className="cover-art" src={getCoverURL(album.songs[0])} alt="cover" />
-				<div className="album-title">{album.title}</div>
-				<div className="album-date">{album.date}</div>
-			</div>
+			div({ className: cn, onClick: () => this.props.playId(album.songs[0].id) }, [
+				img('.cover-art', { src: getCoverURL(album.songs[0]), alt: 'cover' }),
+				div('.album-title', album.title),
+				div('.album-date', album.date) ])
 		)
 	}
 }
@@ -37,14 +37,10 @@ class Albums extends React.Component {
 		if (!this.props.albums) return null
 
 		return (
-			<div className="albums">
-				{this.props.albums.map((a) =>
-					<Album key={a.title} album={a} currentAlbum={this.props.song.album} />
-				)}
-				<button key="close" className="material-button close-albums" onClick={() => this.props.closeAlbums()}>
-					<i className="material-icons">close</i>
-				</button>
-			</div>
+			div('.albums', [ this.props.albums.map((a) =>
+				h(Album, { key: a.title, album: a, currentAlbum: this.props.song.album })),
+				button('.material-button.close-albums', { onClick: () => this.props.closeAlbums() }, [
+					i('.material-icons', 'close') ]) ])
 		)
 	}
 }

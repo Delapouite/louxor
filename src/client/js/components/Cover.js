@@ -1,6 +1,7 @@
 import React from 'react'
 import { connect } from 'react-redux'
-import classNames from 'classnames'
+import { default as cx } from 'classnames'
+import { div, h, img } from 'react-hyperscript-helpers'
 
 import { flip } from '../actions'
 import Songs from './Songs'
@@ -12,7 +13,7 @@ export const getCoverURL = (song) => song && song.file
 export class BackgroundCover extends React.Component {
 	render() {
 		const style = { backgroundImage: 'url("' + getCoverURL(this.props.song) + '")' }
-		return <div className="background-cover" style={style} />
+		return div('.background-cover', { style })
 	}
 }
 
@@ -54,32 +55,23 @@ class Progress extends React.Component {
 			width: `${p}%`
 		}
 
-		return (
-			<div className="progress" style={style}></div>
-		)
+		return div('.progress', { style })
 	}
 }
 
 export class _Cover extends React.Component {
 	render () {
 		const { status, song } = this.props
-		const cn = classNames('cover-tilt', { flipped: this.props.flipped })
-		const vynil = classNames('cover-vynil', { spinning: !status.paused })
+		const tilt = cx('cover-tilt', { flipped: this.props.flipped })
+		const vynil = cx('cover-vynil', { spinning: !status.paused })
 
 		return (
-			<div className="cover">
-				<div className={cn} onClick={() => { if (!this.props.flipped) this.props.flip() }}>
-					<img className={vynil} src="/images/vynil.png" alt="vynil" />
-
-					<Progress elapsed={status.elapsed} total={song.time} paused={status.paused} />
-
-					<img className="cover-front" src={getCoverURL(song)} alt="cover" />
-
-					<div className="cover-back">
-						<Songs song={song} />
-					</div>
-				</div>
-			</div>
+			div('.cover', [
+				div({ className: tilt, onClick: () => { if (!this.props.flipped) this.props.flip() }}, [
+					img({className: vynil, src: '/images/vynil.png', alt: 'vynil' }),
+					h(Progress, { elapsed: status.elapsed, total: song.time, paused: status.paused }),
+					img('.cover-front', { src: getCoverURL(song), alt: 'cover' }),
+					div('.cover-back', [ h(Songs, { song }) ]) ]) ])
 		)
 	}
 }
