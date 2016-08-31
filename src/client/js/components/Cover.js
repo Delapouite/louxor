@@ -10,12 +10,8 @@ export const getCoverURL = (song) => song && song.file
 	? '/art/' + encodeURIComponent(song.file)
 	: '/art'
 
-export class BackgroundCover extends React.Component {
-	render() {
-		const style = { backgroundImage: 'url("' + getCoverURL(this.props.song) + '")' }
-		return div('.background-cover', { style })
-	}
-}
+export const BackgroundCover = ({ song }) =>
+	div('.background-cover', { style: { backgroundImage: 'url("' + getCoverURL(song) + '")' }})
 
 class Progress extends React.Component {
 	constructor (props) {
@@ -50,30 +46,22 @@ class Progress extends React.Component {
 		if (p < 1.5) p = 1.5
 		if (p > 100) p = 100
 
-		const style = {
-			height: `${p}%`,
-			width: `${p}%`
-		}
-
-		return div('.progress', { style })
+		return div('.progress', { style: { height: `${p}%`, width: `${p}%` }})
 	}
 }
 
-export class _Cover extends React.Component {
-	render () {
-		const { status, song } = this.props
-		const tilt = cx('cover-tilt', { flipped: this.props.flipped })
-		const vynil = cx('cover-vynil', { spinning: !status.paused })
+const _Cover = ({ status, song, flipped, flip }) => {
+	const tilt = cx('cover-tilt', { flipped })
+	const vynil = cx('cover-vynil', { spinning: !status.paused })
 
-		return (
-			div('.cover', [
-				div({ className: tilt, onClick: () => { if (!this.props.flipped) this.props.flip() }}, [
-					img({className: vynil, src: '/images/vynil.png', alt: 'vynil' }),
-					h(Progress, { elapsed: status.elapsed, total: song.time, paused: status.paused }),
-					img('.cover-front', { src: getCoverURL(song), alt: 'cover' }),
-					div('.cover-back', [ h(Songs, { song }) ]) ]) ])
-		)
-	}
+	return (
+		div('.cover', [
+			div({ className: tilt, onClick: () => { if (!flipped) flip() }}, [
+				img({className: vynil, src: '/images/vynil.png', alt: 'vynil' }),
+				h(Progress, { elapsed: status.elapsed, total: song.time, paused: status.paused }),
+				img('.cover-front', { src: getCoverURL(song), alt: 'cover' }),
+				div('.cover-back', [ h(Songs, { song }) ]) ]) ])
+	)
 }
 
 const mapStateToProps = (state) => ({ flipped: state.ui.flipped })

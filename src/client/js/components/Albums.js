@@ -6,18 +6,15 @@ import { button, div, h, i, img } from 'react-hyperscript-helpers'
 import { closeAlbums, fetchAlbums, playId } from '../actions'
 import { getCoverURL } from './Cover'
 
-class _Album extends React.Component {
-	render () {
-		const { album, currentAlbum } = this.props
-		const cn = cx('album', { 'current-album': currentAlbum === album.title })
+const _Album = ({ album, currentAlbum, playId }) => {
+	const cn = cx('album', { 'current-album': currentAlbum === album.title })
 
-		return (
-			div({ className: cn, onClick: () => this.props.playId(album.songs[0].id) }, [
-				img('.cover-art', { src: getCoverURL(album.songs[0]), alt: 'cover' }),
-				div('.album-title', album.title),
-				div('.album-date', album.date) ])
-		)
-	}
+	return (
+		div({ className: cn, onClick: () => playId(album.songs[0].id) }, [
+			img('.cover-art', { src: getCoverURL(album.songs[0]), alt: 'cover' }),
+			div('.album-title', album.title),
+			div('.album-date', album.date) ])
+	)
 }
 
 const Album = connect(null, { playId })(_Album)
