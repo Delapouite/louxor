@@ -1,0 +1,64 @@
+$color = #eee
+
+* {
+	box-sizing: border-box
+}
+
+html, body {
+	background: black
+	background-size: cover
+	margin: 0
+	/* for out of bound tilt effect on small screen */
+	overflow: hidden
+	padding: 0
+}
+
+body {
+	color: $color
+	font-family: sans-serif
+}
+
+.material-button {
+	align-items: center
+	background: none
+	border: none
+	color: #999
+	cursor: pointer
+	display: inline-flex
+	font-weight: bold
+	height: 48px
+	justify-content: center
+	margin-right: 1em
+	outline: none
+	padding: 0
+	text-align: center
+	text-decoration: none
+	vertical-align: middle
+	width: 48px
+
+	i {
+		font-size: 48px
+		transition: all .2s linear
+		vertical-align: middle
+	}
+
+	&:hover {
+		color: $color
+	}
+}
+
+.material-button:hover i {
+	text-shadow: 0px 5px 5px rgba(0, 0, 0, 0.6)
+}
+
+.material-enabled {
+	color: #fff
+}
+
+@require 'Albums'
+@require 'App'
+@require 'Controls'
+@require 'Cover'
+@require 'CurrentSong'
+@require 'Player'
+@require 'Songs'

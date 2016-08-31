@@ -1,0 +1,104 @@
+.background-cover {
+	background: no-repeat center center fixed
+	background-size: cover
+	bottom: 0
+	-webkit-filter: blur(5px) contrast(200%) brightness(1)
+	filter: blur(5px) contrast(200%) brightness(1)
+	left: 0
+	opacity: 0.2
+	position: absolute
+	right: 0
+	top: 0
+	transition: opacity 0.1s ease-in
+	z-index: -1
+}
+
+.cover {
+	margin: 0 auto
+	perspective: 1000px
+	position: relative
+}
+
+.cover-tilt {
+	height: 800px
+	position: relative
+	transform: perspective(1000px) rotateY(5deg)
+	transform-style: preserve-3d
+	transition: all 0.3s ease-in
+	width: 800px
+}
+
+.cover-tilt:hover {
+	transform: perspective(1000px) rotateY(0deg)
+}
+
+.cover-tilt.flipped {
+	transform: perspective(1000px) rotateY(185deg)
+}
+
+@media (max-width: 1500px) {
+	.cover-tilt {
+		height: 500px
+		width: 500px
+	}
+}
+
+.cover img {
+	height: 100%
+	position: absolute
+	width: 100%
+}
+
+
+.cover-vynil {
+	backface-visibility: hidden
+	display: block
+	left: 0
+	transition: all 0.3s linear
+}
+
+.cover-vynil.spinning {
+	animation: spin 5s infinite linear
+	left: 150px
+}
+
+.cover-tilt:hover .cover-vynil.spinning {
+	left: 250px
+}
+
+@keyframes spin {
+	0% {
+		transform: rotate(0deg)
+	}
+	100% {
+		transform: rotate(360deg)
+	}
+}
+
+.cover-front, .cover-back {
+	backface-visibility: hidden
+	border-radius: 5px
+	border: 10px solid rgba(255, 255, 255, 0.05)
+	bottom: 0
+	box-shadow: 0px 5px 20px rgba(0, 0, 0, 0.4)
+	left: 0
+	position: absolute
+	right: 0
+	top: 0
+}
+
+.cover-back {
+	background: rgba(0, 0, 0, 0.5)
+	overflow-y: auto
+	transform: rotateY(180deg)
+}
+
+.progress {
+	backface-visibility: hidden
+	background: $color
+	border-radius: 5px
+	position: absolute
+	transition: all 1s linear
+}
+
+

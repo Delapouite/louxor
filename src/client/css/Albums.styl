@@ -1,0 +1,39 @@
+.albums {
+	display: flex
+	justify-content: center
+}
+
+.album {
+	cursor: pointer
+	margin-left: 1em
+	text-align: center
+	width: 100px
+
+	.album-title {
+		margin-top: 5px
+		overflow: hidden
+		text-overflow: ellipsis
+		white-space: nowrap
+	}
+
+	.cover-art {
+		border: 5px solid rgba(255, 255, 255, 0.05)
+		display: block
+		height: 100px
+		width: 100px
+	}
+}
+
+.current-album {
+	font-weight: bold
+
+	.cover-art {
+		border: 5px solid $color
+	}
+}
+
+.close-albums {
+	position: absolute
+	right: 0
+}
+
