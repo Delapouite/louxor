@@ -19,18 +19,20 @@ class Songs extends React.Component {
 		if (!this.props.currentAlbum) return null
 
 		return (
-			<ul className="songs">
+			<div className="songs">
 				<button key="close" className="material-button close-songs" onClick={() => this.props.flip()}>
 					<i className="material-icons">close</i>
 				</button>
-				{this.props.currentAlbum.songs.map((s) =>
-					<li className={this.props.song.title === s.title ? 'selected' : ''}
-						key={s.title} onClick={() => this.props.playId(s.id)}>
-						<span className="song-title">{s.title}</span>
-						<span className="song-duration">{toHHMMSS(s.time)}</span>
-					</li>
-				)}
-			</ul>
+				<ul>
+					{this.props.currentAlbum.songs.map((s) =>
+						<li className={this.props.song.title === s.title ? 'selected' : ''}
+							key={s.title} onClick={() => this.props.playId(s.id)}>
+							<span className="song-title">{s.title}</span>
+							<span className="song-duration">{toHHMMSS(s.time)}</span>
+						</li>
+					)}
+				</ul>
+			</div>
 		)
 	}
 }
