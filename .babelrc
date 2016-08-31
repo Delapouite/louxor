@@ -1,4 +1,4 @@
 {
-	"presets": ["stage-2", "es2015", "es2016", "react"]
+	"presets": ["stage-2", "es2015", "react"]
 }
 
