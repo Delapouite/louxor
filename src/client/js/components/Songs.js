@@ -1,6 +1,8 @@
 import React from 'react'
 import { connect } from 'react-redux'
+
 import { fetchCurrentAlbum, flip, playId } from '../actions'
+import { toHHMMSS } from '../../../shared/util'
 
 class Songs extends React.Component {
 	componentWillMount () {
@@ -23,7 +25,10 @@ class Songs extends React.Component {
 				</button>
 				{this.props.currentAlbum.songs.map((s) =>
 					<li className={this.props.song.title === s.title ? 'selected' : ''}
-						key={s.title} onClick={() => this.props.playId(s.id)}>{s.title}</li>
+						key={s.title} onClick={() => this.props.playId(s.id)}>
+						<span className="song-title">{s.title}</span>
+						<span className="song-duration">{toHHMMSS(s.time)}</span>
+					</li>
 				)}
 			</ul>
 		)
