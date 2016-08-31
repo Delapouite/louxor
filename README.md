@@ -33,9 +33,13 @@ It displays only basic info about the current song and the art cover from the as
 
 ### Search
 
-Clicking on the artist name's opens all the related albums at the bottom:
+Clicking on the artist's name opens all the related albums at the bottom:
 
 ![stupeflip](https://raw.githubusercontent.com/delapouite/louxor/master/docs/stupeflip.jpg)
+
+Clicking on the cover will flip the album and display its songs:
+
+![carpenter-brut](https://raw.githubusercontent.com/delapouite/louxor/master/docs/carpenter-brut.jpg)
 
 ## Technos
 
