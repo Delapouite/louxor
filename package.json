@@ -16,7 +16,7 @@
     "postbuild:js": "uglifyjs build/bundle.js -o build/bundle.js",
     "watch": "npm-run-all -p watch:*",
     "watch:css": "npm run build:css -- --watch",
-    "watch:js": "watchify -t babelify -o build/bundle.js src/client/js/index.js"
+    "watch:js": "watchify -v -t babelify -o build/bundle.js src/client/js/index.js"
   },
   "keywords": [
     "mpd",
