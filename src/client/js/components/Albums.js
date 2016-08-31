@@ -3,7 +3,7 @@ import { connect } from 'react-redux'
 import { default as cx } from 'classnames'
 import { button, div, h, i, img } from 'react-hyperscript-helpers'
 
-import { closeAlbums, fetchAlbums, playId } from '../actions'
+import { toggleAlbums, fetchAlbums, playId } from '../actions'
 import { getCoverURL } from './Cover'
 
 const _Album = ({ album, currentAlbum, playId }) => {
@@ -36,7 +36,7 @@ class Albums extends React.Component {
 		return (
 			div('.albums', [ this.props.albums.map((a) =>
 				h(Album, { key: a.title, album: a, currentAlbum: this.props.song.album })),
-				button('.material-button.close-albums', { onClick: () => this.props.closeAlbums() }, [
+				button('.material-button.close-albums', { onClick: () => this.props.toggleAlbums() }, [
 					i('.material-icons', 'close') ]) ])
 		)
 	}
@@ -44,4 +44,4 @@ class Albums extends React.Component {
 
 const mapStateToProps = (state) => ({ albums: state.mpc.albums })
 
-export default connect(mapStateToProps, { closeAlbums, fetchAlbums })(Albums)
+export default connect(mapStateToProps, { toggleAlbums, fetchAlbums })(Albums)

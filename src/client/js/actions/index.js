@@ -8,8 +8,7 @@ export const FETCH_ALBUMS_SUCCESS = 'FETCH_ALBUMS_SUCCESS'
 export const FETCH_CURRENT_ALBUM_SUCCESS = 'FETCH_CURRENT_ALBUM_SUCCESS'
 
 // ui
-export const OPEN_ALBUMS = 'OPEN_ALBUMS'
-export const CLOSE_ALBUMS = 'CLOSE_ALBUMS'
+export const TOGGLE_ALBUMS = 'TOGGLE_ALBUMS'
 export const FLIP = 'FLIP'
 
 
@@ -41,6 +40,5 @@ export const fetchAlbums = (artist) => ({ type: SEND_MPC_QUERY, command: 'albums
 export const fetchCurrentAlbum = () => ({ type: SEND_MPC_QUERY, command: 'currentAlbum' })
 
 // ui
-export const openAlbums = () => ({ type: OPEN_ALBUMS })
-export const closeAlbums = () => ({ type: CLOSE_ALBUMS })
+export const toggleAlbums = () => ({ type: TOGGLE_ALBUMS })
 export const flip = () => ({ type: FLIP })
