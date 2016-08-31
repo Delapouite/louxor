@@ -12,7 +12,9 @@ class Player extends React.Component {
 
 		return (
 				<div className="player">
-					<button className="prev-song" title="Prev Song" onClick={() => this.props.prevSong()}></button>
+					<button className="prev-song" onClick={() => this.props.prevSong()}>
+						<i className="material-icons">skip_previous</i>
+					</button>
 
 					<div className="col-a">
 						<Cover song={song} status={status} />
@@ -23,7 +25,9 @@ class Player extends React.Component {
 						<Controls song={song} status={status} />
 					</div>
 
-					<button className="next-song" title="Next song" onClick={() => this.props.nextSong()}></button>
+					<button className="next-song" onClick={() => this.props.nextSong()}>
+						<i className="material-icons">skip_next</i>
+					</button>
 				</div>
 		)
 	}

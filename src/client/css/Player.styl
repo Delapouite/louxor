@@ -19,3 +19,33 @@
 	justify-content: center
 }
 
+.prev-song, .next-song {
+	border: 0
+	color: $color
+	cursor: pointer
+	display: block
+	opacity: 0
+	outline: none
+	transition opacity .2s linear
+	width: 5%
+	z-index: 1
+
+	i {
+		font-size: 48px
+	}
+}
+
+.prev-song {
+	background: radial-gradient(ellipse at 0 50%, rgba(255, 255, 255, 0.4) 0%, rgba(255, 255, 255, 0) 60%)
+	text-align: left
+}
+
+.next-song {
+	background: radial-gradient(ellipse at 100% 50%, rgba(255, 255, 255, 0.4) 0%, rgba(255, 255, 255, 0) 60%)
+	text-align: right
+}
+
+.prev-song:hover, .next-song:hover {
+	opacity: 1
+}
+
