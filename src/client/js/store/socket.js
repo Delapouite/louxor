@@ -1,4 +1,4 @@
-/* global io */
+import io from 'socket.io-client'
 import { CONNECT, SEND_MPC_COMMAND, SEND_MPC_QUERY, receiveMpcState, receiveResults } from '../actions'
 
 let socket = null
