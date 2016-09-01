@@ -43,6 +43,7 @@
     "react-document-title": "^2.0.2",
     "react-dom": "^15.3.1",
     "react-hyperscript-helpers": "^1.2.0",
+    "react-motion": "^0.4.4",
     "react-redux": "^4.4.5",
     "redux": "^3.5.2",
     "screenfull": "^3.0.2",
