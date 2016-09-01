@@ -12,7 +12,7 @@ const _Album = ({ album, currentAlbum, playId, style }) => {
 
 	return (
 		div({ className: cn, style, onClick: () => playId(album.songs[0].id) }, [
-			img('.cover-art', { src: getCoverURL(album.songs[0]), alt: 'cover' }),
+			img('.cover-art', { src: getCoverURL(album.songs[0], 100), alt: 'cover' }),
 			div('.album-title', album.title),
 			div('.album-date', album.date) ])
 	)

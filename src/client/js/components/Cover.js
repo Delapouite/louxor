@@ -6,9 +6,12 @@ import { div, h, img } from 'react-hyperscript-helpers'
 import { flip } from '../actions'
 import Songs from './Songs'
 
-export const getCoverURL = (song) => song && song.file
-	? '/art/' + encodeURIComponent(song.file)
-	: '/art'
+export const getCoverURL = (song, size) => {
+	const URL = song && song.file
+		? '/art/' + encodeURIComponent(song.file)
+		: '/art'
+	return size ? URL + '?size=' + size : URL
+}
 
 export class BackgroundCover extends React.Component {
 	// do not refresh if same album to avoid flash
@@ -20,7 +23,7 @@ export class BackgroundCover extends React.Component {
 	}
 
 	render () {
-		return div('.background-cover', { style: { backgroundImage: 'url("' + getCoverURL(this.props.song) + '")' }})
+		return div('.background-cover', { style: { backgroundImage: 'url("' + getCoverURL(this.props.song, 100) + '")' }})
 	}
 }
 

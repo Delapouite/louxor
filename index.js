@@ -11,6 +11,7 @@ const io = require('socket.io')(server)
 const mpcpp = require('mpcpp')
 const mpc = mpcpp.connect()
 const trumpet = require('trumpet')
+const gm = require('gm')
 
 const { getTitle } = require('./src/shared/util')
 
@@ -120,12 +121,18 @@ app.get('/', (req, res) => {
 
 app.use(express.static('build'))
 
-const sendCover = (res, p) => res.sendFile(p, { root: MUSIC_ROOT })
+const sendCover = (res, p, size) => !size
+	? res.sendFile(p, { root: MUSIC_ROOT })
+	: gm(MUSIC_ROOT + p).resize(size, size) .stream().pipe(res)
+
 const sendDefaultCover = (res) => sendCover(res, '!/cover.jpg')
 
 app.get('/art/:songFile?', (req, res) => {
 	const { songFile } = req.params
 	if (!songFile) return sendDefaultCover(res)
+
+	let size = Number(req.query.size)
+	if (size < 1 || size >= 2000) size = false
 
 	const dir = path.dirname(songFile)
 	// TODO handle FLAC
@@ -138,7 +145,7 @@ app.get('/art/:songFile?', (req, res) => {
 
 	Promise.some(stats, 1).then(([format]) => {
 		log.express('cover', format)
-		sendCover(res, coverPath + format)
+		sendCover(res, coverPath + format, size)
 	})
 	.catch(() => sendDefaultCover(res))
 })

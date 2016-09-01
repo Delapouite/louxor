@@ -39,6 +39,7 @@
     "compression": "^1.6.2",
     "debug": "^2.2.0",
     "express": "^4.14.0",
+    "gm": "^1.23.0",
     "mpcpp": "^1.4.0",
     "react": "^15.3.1",
     "react-document-title": "^2.0.2",
