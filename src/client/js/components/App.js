@@ -22,7 +22,7 @@ class App extends React.Component {
 			h(DocumentTitle, { title: getTitle(status, currentSong) }, [
 				div('.app', [
 					h(BackgroundCover, { song: currentSong }),
-					screenfull.isFullscreen && button('.material-buttom.fullscreen', { onClick: fullScreen }, [
+					!screenfull.isFullscreen && button('.material-button.fullscreen', { onClick: fullScreen }, [
 						i('.material-icons', 'fullscreen')
 					]),
 					h(Player, { song: currentSong, status }),
