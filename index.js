@@ -1,8 +1,8 @@
+const Promise = require('bluebird')
 const { homedir } = require('os')
-const fs = require('fs')
+const fs = Promise.promisifyAll(require('fs'))
 const path = require('path')
 const debug = require('debug')
-const Promise = require('bluebird')
 const express = require('express')
 const compression = require('compression')
 const app = express()
@@ -134,12 +134,7 @@ app.get('/art/:songFile?', (req, res) => {
 		: dir + '/cover'
 
 	const stats = COVER_FORMATS.map((ext) =>
-		new Promise((resolve, reject) => {
-			fs.stat(MUSIC_ROOT + coverPath + ext, (err) => {
-				if (err) reject(err); else resolve(ext)
-			})
-		})
-	)
+		fs.statAsync(MUSIC_ROOT + coverPath + ext).then(() => ext))
 
 	Promise.some(stats, 1).then(([format]) => {
 		log.express('cover', format)
