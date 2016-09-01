@@ -4,6 +4,7 @@ const path = require('path')
 const debug = require('debug')
 const Promise = require('bluebird')
 const express = require('express')
+const compression = require('compression')
 const app = express()
 const server = require('http').Server(app)
 const io = require('socket.io')(server)
@@ -101,6 +102,7 @@ io
 
 
 // express
+app.use(compression())
 
 // inject initial state in index.html
 app.get('/', (req, res) => {
