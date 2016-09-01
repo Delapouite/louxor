@@ -13,13 +13,17 @@ export const getCoverURL = (song, size) => {
 	return size ? URL + '?size=' + size : URL
 }
 
-export class BackgroundCover extends React.Component {
 	// do not refresh if same album to avoid flash
-	shouldComponentUpdate (nextProps) {
-		// singles can have their own cover
-		if (nextProps.song.album === 'singles') return true
+const shouldImageUpdate = (props, nextProps) => {
+	// singles can have their own cover
+	if (nextProps.song.album === 'singles') return true
 
-		return this.props.song.album !== nextProps.song.album
+	return props.song.album !== nextProps.song.album
+}
+
+export class BackgroundCover extends React.Component {
+	shouldComponentUpdate (nextProps) {
+		return shouldImageUpdate(this.props, nextProps)
 	}
 
 	render () {
@@ -64,6 +68,16 @@ class Progress extends React.Component {
 	}
 }
 
+class Art extends React.Component {
+	shouldComponentUpdate (nextProps) {
+		return shouldImageUpdate(this.props, nextProps)
+	}
+
+	render () {
+		return img('.cover-front', { src: getCoverURL(this.props.song), alt: 'cover' })
+	}
+}
+
 const _Cover = ({ status, song, flipped, flip }) => {
 	const tilt = cx('cover-tilt', { flipped })
 	const vynil = cx('cover-vynil', { spinning: !status.paused })
@@ -73,7 +87,7 @@ const _Cover = ({ status, song, flipped, flip }) => {
 			div({ className: tilt, onClick: () => { if (!flipped) flip() }}, [
 				img({className: vynil, src: '/images/vynil.png', alt: 'vynil' }),
 				h(Progress, { elapsed: status.elapsed, total: song.time, paused: status.paused }),
-				img('.cover-front', { src: getCoverURL(song), alt: 'cover' }),
+				h(Art, { song }),
 				div('.cover-back', [ h(Songs, { song }) ]) ]) ])
 	)
 }
