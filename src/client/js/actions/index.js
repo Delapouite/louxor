@@ -9,6 +9,7 @@ export const FETCH_CURRENT_ALBUM_SUCCESS = 'FETCH_CURRENT_ALBUM_SUCCESS'
 
 // ui
 export const TOGGLE_ALBUMS = 'TOGGLE_ALBUMS'
+export const TOGGLE_ANIMATION = 'TOGGLE_ANIMATION'
 export const FLIP = 'FLIP'
 
 
@@ -41,4 +42,5 @@ export const fetchCurrentAlbum = () => ({ type: SEND_MPC_QUERY, command: 'curren
 
 // ui
 export const toggleAlbums = () => ({ type: TOGGLE_ALBUMS })
+export const toggleAnimation = () => ({ type: TOGGLE_ANIMATION })
 export const flip = () => ({ type: FLIP })

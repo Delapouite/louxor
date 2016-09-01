@@ -1,4 +1,4 @@
-import { FLIP, TOGGLE_ALBUMS } from '../actions/'
+import { FLIP, TOGGLE_ALBUMS, TOGGLE_ANIMATION } from '../actions/'
 
 const initialState = {
 	albums: false, // bottom panel opened?
@@ -10,6 +10,9 @@ export default (state = initialState, action) => {
 	switch (action.type) {
 		case TOGGLE_ALBUMS:
 			return Object.assign({}, state, {albums: !state.albums})
+
+		case TOGGLE_ANIMATION:
+			return Object.assign({}, state, {animation: !state.animation})
 
 		case FLIP:
 			return Object.assign({}, state, {flipped: !state.flipped})

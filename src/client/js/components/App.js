@@ -5,6 +5,7 @@ import screenfull from 'screenfull'
 import { button, div, h, i } from 'react-hyperscript-helpers'
 
 import { getTitle } from '../../../shared/util'
+import { toggleAnimation } from '../actions'
 import { BackgroundCover } from './Cover'
 import Player from './Player'
 import Albums from './Albums'
@@ -22,6 +23,9 @@ class App extends React.Component {
 			h(DocumentTitle, { title: getTitle(status, currentSong) }, [
 				div('.app', [
 					h(BackgroundCover, { song: currentSong }),
+					button('.material-button.animation', { onClick: () => this.props.toggleAnimation() }, [
+						i('.material-icons', this.props.ui.animation ? 'flash_on' : 'flash_off')
+					]),
 					!screenfull.isFullscreen && button('.material-button.fullscreen', { onClick: fullScreen }, [
 						i('.material-icons', 'fullscreen')
 					]),
@@ -31,6 +35,4 @@ class App extends React.Component {
 	}
 }
 
-const mapStateToProps = (state) => state
-
-export default connect(mapStateToProps)(App)
+export default connect((x => x), { toggleAnimation })(App)
