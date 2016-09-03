@@ -6,6 +6,7 @@ export const SEND_MPC_QUERY = 'SEND_MPC_QUERY'
 export const FETCH_MPC_STATE_SUCCESS = 'FETCH_MPC_STATE_SUCCESS'
 export const FETCH_ALBUMS_SUCCESS = 'FETCH_ALBUMS_SUCCESS'
 export const FETCH_CURRENT_ALBUM_SUCCESS = 'FETCH_CURRENT_ALBUM_SUCCESS'
+export const FETCH_FAILURE = 'FETCH_FAILURE'
 
 // ui
 export const TOGGLE_ALBUMS = 'TOGGLE_ALBUMS'
@@ -16,14 +17,15 @@ export const FLIP = 'FLIP'
 export const receiveMpcState = (state) => ({ type: FETCH_MPC_STATE_SUCCESS, state })
 export const receiveResults = (command, results) => {
 	switch (command) {
-		case 'albums':
+		case 'artist':
+		case 'date':
 			return { type: FETCH_ALBUMS_SUCCESS, albums: results }
 
 		case 'currentAlbum':
 			return { type: FETCH_CURRENT_ALBUM_SUCCESS, currentAlbum: results }
 
 		default:
-			return {}
+			return { type: FETCH_FAILURE }
 	}
 }
 
@@ -37,10 +39,11 @@ export const playId = (id) => ({ type: SEND_MPC_COMMAND, command: 'playId', args
 export const toggleRandom = () => ({ type: SEND_MPC_COMMAND, command: 'random' })
 
 // queries
-export const fetchAlbums = (artist) => ({ type: SEND_MPC_QUERY, command: 'albums', args: [artist] })
+export const fetchAlbums = (song, tag) => ({ type: SEND_MPC_QUERY, command: tag, args: [song[tag]] })
 export const fetchCurrentAlbum = () => ({ type: SEND_MPC_QUERY, command: 'currentAlbum' })
 
 // ui
-export const toggleAlbums = () => ({ type: TOGGLE_ALBUMS })
+// tag = 'artist' or 'date'
+export const toggleAlbums = (tag) => ({ type: TOGGLE_ALBUMS, tag })
 export const toggleAnimation = () => ({ type: TOGGLE_ANIMATION })
 export const flip = () => ({ type: FLIP })

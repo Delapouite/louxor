@@ -46,7 +46,7 @@ const sendCommandToMPD = (cmd, args) => {
 
 const sendQueryToMPD = (socket) => (cmd, args = []) => {
 	log.io('mpc.query', cmd, args)
-	const whiteList = ['albums', 'currentAlbum']
+	const whiteList = ['artist', 'currentAlbum', 'date']
 	if (!whiteList.includes(cmd)) return
 
 	const cb = (err, results) => {

@@ -1,20 +1,26 @@
 .albums {
 	display: flex
+	flex-wrap: wrap
+	font-size: 0.8em
 	justify-content: center
-	overflow: hidden
+	overflow: auto
 	position: relative
 }
 
 .album {
 	cursor: pointer
+	flex-shrink: 0
 	overflow: hidden
 	text-align: center
 
-	.album-title {
-		margin-top: 5px
+	.album-title, .album-artist {
 		overflow: hidden
 		text-overflow: ellipsis
 		white-space: nowrap
+	}
+
+	.album-title {
+		margin-top: 5px
 	}
 
 	.cover-art {
@@ -29,7 +35,13 @@
 	font-weight: bold
 
 	.cover-art {
-		border: 5px solid $color
+		border-color: $color
+	}
+}
+
+.album:hover {
+	.cover-art {
+		border-color: rgba(255, 255, 255, 0.2)
 	}
 }
 

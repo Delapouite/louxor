@@ -7,26 +7,28 @@ import { Motion, TransitionMotion, spring } from 'react-motion'
 import { toggleAlbums, fetchAlbums, playId } from '../actions'
 import { getCoverURL } from './Cover'
 
-const _Album = ({ album, currentAlbum, playId, style }) => {
+const _Album = ({ album, currentAlbum, tag, playId, style }) => {
 	const cn = cx('album', { 'current-album': currentAlbum === album.title })
 
 	return (
 		div({ className: cn, style, onClick: () => playId(album.songs[0].id) }, [
 			img('.cover-art', { src: getCoverURL(album.songs[0], 100), alt: 'cover' }),
 			div('.album-title', album.title),
-			div('.album-date', album.date) ])
+			tag !== 'artist' && div('.album-artist', album.artist),
+			tag !=='date' && div('.album-date', album.date) ])
 	)
 }
 
 const Album = connect(null, { playId })(_Album)
 
 class Albums extends React.Component {
-	componentWillReceiveProps (nextProps) {
-		if (!nextProps.show) return
+	componentWillReceiveProps ({ show, song, tag }) {
+		if (!show) return
 
-		if (!this.props.show && nextProps.show
-			|| this.props.song.album !== nextProps.song.album) {
-			this.props.fetchAlbums(nextProps.song.artist)
+
+		if (!this.props.show
+			|| this.props.song.album !== song.album) {
+			this.props.fetchAlbums(song, tag)
 		}
 	}
 
@@ -58,8 +60,8 @@ class Albums extends React.Component {
 		// Motion, for toggling the albums panel
 
 		const toggleHeight = this.props.animation
-			? spring(this.props.show ? 150 : 0, springProps)
-			: this.props.show ? 150 : 0
+			? spring(this.props.show ? 135 : 0, springProps)
+			: this.props.show ? 135 : 0
 
 		const motionProps = {
 			defaultStyle: { height: 0 },
@@ -70,7 +72,7 @@ class Albums extends React.Component {
 			h(TransitionMotion, transitionProps, [(transitionStyles) =>
 				h(Motion, motionProps, [(motionStyle) => {
 					return div('.albums', {key: 'albums', style: motionStyle}, [ transitionStyles.map(({ key, style, data }) =>
-						h(Album, { key, style, album: data, currentAlbum: this.props.song.album })),
+						h(Album, { key, style, tag: this.props.tag, album: data, currentAlbum: this.props.song.album })),
 						button('.material-button.close-albums', { onClick: () => this.props.toggleAlbums() }, [
 							i('.material-icons', 'close') ])
 					])
@@ -80,6 +82,10 @@ class Albums extends React.Component {
 	}
 }
 
-const mapStateToProps = (state) => ({ albums: state.mpc.albums, animation: state.ui.animation })
+const mapStateToProps = (state) => ({
+	albums: state.mpc.albums,
+	animation: state.ui.animation,
+	tag: state.ui.albumsTag
+})
 
 export default connect(mapStateToProps, { toggleAlbums, fetchAlbums })(Albums)
