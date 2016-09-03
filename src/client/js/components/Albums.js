@@ -2,7 +2,7 @@ import React from 'react'
 import { connect } from 'react-redux'
 import { default as cx } from 'classnames'
 import { button, div, h, i, img } from 'react-hyperscript-helpers'
-import { TransitionMotion, spring } from 'react-motion'
+import { Motion, TransitionMotion, spring } from 'react-motion'
 
 import { toggleAlbums, fetchAlbums, playId } from '../actions'
 import { getCoverURL } from './Cover'
@@ -21,43 +21,61 @@ const _Album = ({ album, currentAlbum, playId, style }) => {
 const Album = connect(null, { playId })(_Album)
 
 class Albums extends React.Component {
-	componentWillMount () {
-		this.props.fetchAlbums(this.props.song.artist)
-	}
-
 	componentWillReceiveProps (nextProps) {
-		if (this.props.song.album !== nextProps.song.album) {
+		if (!nextProps.show) return
+
+		if (!this.props.show && nextProps.show
+			|| this.props.song.album !== nextProps.song.album) {
 			this.props.fetchAlbums(nextProps.song.artist)
 		}
 	}
 
 	render () {
 		const albums = this.props.albums || []
+
+		const springProps = { stiffness: 170, damping: 26, precision: 0.01 }
+
+		// TransitionMotion, for appearing and disappearing of each album
+
 		const expandWidth = 100
 		const shrinkWidth = this.props.animation ? 0 : expandWidth
 
-		// TransitionMotion
-		const willEnter = () => ({ width: shrinkWidth })
-		const willLeave = () => ({ width: spring(shrinkWidth) })
+		const transitionProps = {
+			willEnter: () => ({ width: shrinkWidth }),
+			willLeave: () => ({ width: spring(shrinkWidth) }),
+			defaultStyles: albums.map((a) => ({
+				key: a.title,
+				style: { width: shrinkWidth },
+				data: a
+			})),
+			styles: albums.map((a) => ({
+				key: a.title,
+				style: { width: spring(expandWidth) },
+				data: a
+			}))
+		}
 
-		const defaultStyles = albums.map((a) => ({
-			key: a.title,
-			style: { width: shrinkWidth },
-			data: a
-		}))
+		// Motion, for toggling the albums panel
 
-		const styles = albums.map((a) => ({
-			key: a.title,
-			style: { width: spring(expandWidth) },
-			data: a
-		}))
+		const toggleHeight = this.props.animation
+			? spring(this.props.show ? 150 : 0, springProps)
+			: this.props.show ? 150 : 0
+
+		const motionProps = {
+			defaultStyle: { height: 0 },
+			style: { height: toggleHeight }
+		}
 
 		return (
-			h(TransitionMotion, { willEnter, willLeave, styles, defaultStyles }, [(iStyles) =>
-				div('.albums', {key: 'albums'}, [ iStyles.map(({ key, style, data }) =>
-					h(Album, { key, style, album: data, currentAlbum: this.props.song.album })),
-					button('.material-button.close-albums', { onClick: () => this.props.toggleAlbums() }, [
-						i('.material-icons', 'close') ]) ]) ])
+			h(TransitionMotion, transitionProps, [(transitionStyles) =>
+				h(Motion, motionProps, [(motionStyle) => {
+					return div('.albums', {key: 'albums', style: motionStyle}, [ transitionStyles.map(({ key, style, data }) =>
+						h(Album, { key, style, album: data, currentAlbum: this.props.song.album })),
+						button('.material-button.close-albums', { onClick: () => this.props.toggleAlbums() }, [
+							i('.material-icons', 'close') ])
+					])
+				}])
+			])
 		)
 	}
 }

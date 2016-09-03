@@ -30,7 +30,7 @@ class App extends React.Component {
 						i('.material-icons', 'fullscreen')
 					]),
 					h(Player, { song: currentSong, status }),
-					this.props.ui.albums && h(Albums, { song: currentSong }) ]) ])
+					h(Albums, { song: currentSong, show: this.props.ui.albums }) ]) ])
 		)
 	}
 }
