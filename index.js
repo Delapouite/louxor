@@ -121,9 +121,12 @@ app.get('/', (req, res) => {
 
 app.use(express.static('build'))
 
-const sendCover = (res, p, size) => !size
-	? res.sendFile(p, { root: MUSIC_ROOT })
-	: gm(MUSIC_ROOT + p).resize(size, size) .stream().pipe(res)
+const sendCover = (res, p, size) => {
+	log.express('cover', p, size)
+	return !size
+		? res.sendFile(p, { root: MUSIC_ROOT })
+		: gm(MUSIC_ROOT + p).resize(size, size) .stream().pipe(res)
+}
 
 const sendDefaultCover = (res) => sendCover(res, '!/cover.jpg')
 
@@ -144,7 +147,6 @@ app.get('/art/:songFile?', (req, res) => {
 		fs.statAsync(MUSIC_ROOT + coverPath + ext).then(() => ext))
 
 	Promise.some(stats, 1).then(([format]) => {
-		log.express('cover', format)
 		sendCover(res, coverPath + format, size)
 	})
 	.catch(() => sendDefaultCover(res))
