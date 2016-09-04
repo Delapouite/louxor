@@ -52,7 +52,7 @@ const sendQueryToMPD = (socket) => (cmd, args = []) => {
 	const cb = (err, results) => {
 		if (err) return
 
-		log.mpc('query', 'cmd', results)
+		log.mpc('query', cmd, results)
 		socket.emit('mpc.results', { command: cmd, results })
 	}
 
