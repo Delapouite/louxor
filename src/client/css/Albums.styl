@@ -1,10 +1,18 @@
 .albums {
+	background: $trans
+	bottom: 0
 	display: flex
 	flex-wrap: wrap
 	font-size: 0.8em
 	justify-content: center
 	overflow: auto
-	position: relative
+	position: absolute
+	width: 100%
+	z-index: 0
+}
+
+.albums::-webkit-scrollbar {
+	display: none
 }
 
 .album {
