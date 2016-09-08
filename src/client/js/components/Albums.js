@@ -1,3 +1,5 @@
+// This component is displayed at the bottom of App after a search
+
 import React from 'react'
 import { connect } from 'react-redux'
 import { default as cx } from 'classnames'
@@ -24,7 +26,6 @@ const Album = connect(null, { playId })(_Album)
 class Albums extends React.Component {
 	componentWillReceiveProps ({ show, song, tag }) {
 		if (!show) return
-
 
 		if (!this.props.show
 			|| this.props.song.album !== song.album) {
@@ -82,10 +83,10 @@ class Albums extends React.Component {
 	}
 }
 
-const mapStateToProps = (state) => ({
-	albums: state.mpc.albums,
-	animation: state.ui.animation,
-	tag: state.ui.albumsTag
+const mapStateToProps = ({ mpc, ui }) => ({
+	albums: mpc.albums,
+	animation: ui.animation,
+	tag: ui.albumsTag
 })
 
 export default connect(mapStateToProps, { toggleAlbums, fetchAlbums })(Albums)

@@ -2,17 +2,27 @@ import React from 'react'
 import { connect } from 'react-redux'
 import DocumentTitle from 'react-document-title'
 import screenfull from 'screenfull'
-import { button, div, h, i } from 'react-hyperscript-helpers'
+import { button, div, h, form, i, input } from 'react-hyperscript-helpers'
 
 import { getTitle } from '../../../shared/util'
-import { toggleAnimation } from '../actions'
+import { fetchAlbums, toggleAnimation } from '../actions'
 import { BackgroundCover } from './Cover'
 import Player from './Player'
 import Albums from './Albums'
 
 class App extends React.Component {
+	constructor () {
+		super()
+		this.state = { search: '' }
+	}
+
 	componentDidMount () {
 		document.addEventListener(screenfull.raw.fullscreenchange, () => this.forceUpdate())
+	}
+
+	handleSubmit (e) {
+		e.preventDefault()
+		this.props.fetchAlbums({ artist: this.state.search}, 'artist')
 	}
 
 	render () {
@@ -26,6 +36,9 @@ class App extends React.Component {
 					button('.material-button.animation', { onClick: () => this.props.toggleAnimation() }, [
 						i('.material-icons', this.props.ui.animation ? 'flash_on' : 'flash_off')
 					]),
+					this.props.ui.albums && form('.search-form', { onSubmit: (e) => this.handleSubmit(e) }, [
+						input('.search-input', { onChange: ({ target }) => { this.setState({ search: target.value }) }, value: this.state.search })
+					]),
 					!screenfull.isFullscreen && button('.material-button.fullscreen', { onClick: fullScreen }, [
 						i('.material-icons', 'fullscreen')
 					]),
@@ -35,4 +48,4 @@ class App extends React.Component {
 	}
 }
 
-export default connect((x => x), { toggleAnimation })(App)
+export default connect((x => x), { fetchAlbums, toggleAnimation })(App)
