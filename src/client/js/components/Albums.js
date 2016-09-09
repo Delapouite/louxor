@@ -28,7 +28,8 @@ class Albums extends React.Component {
 		if (!show) return
 
 		if (!this.props.show
-			|| this.props.song.album !== song.album) {
+			|| this.props.song.album !== song.album
+			|| this.props.tag !== tag) {
 			this.props.fetchAlbums(song, tag)
 		}
 	}
@@ -74,7 +75,7 @@ class Albums extends React.Component {
 				h(Motion, motionProps, [(motionStyle) => {
 					return div('.albums', {key: 'albums', style: motionStyle}, [ transitionStyles.map(({ key, style, data }) =>
 						h(Album, { key, style, tag: this.props.tag, album: data, currentAlbum: this.props.song.album })),
-						button('.material-button.close-albums', { onClick: () => this.props.toggleAlbums() }, [
+						button('.material-button.close-albums', { onClick: () => this.props.toggleAlbums(null, false) }, [
 							i('.material-icons', 'close') ])
 					])
 				}])

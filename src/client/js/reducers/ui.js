@@ -10,7 +10,13 @@ const initialState = {
 export default (state = initialState, action) => {
 	switch (action.type) {
 		case TOGGLE_ALBUMS:
-			return Object.assign({}, state, {albums: !state.albums, albumsTag: action.tag})
+			var albums = state.albumsTag
+			if (typeof action.force == 'boolean') {
+				albums = action.force
+			} else if (!state.albumsTag || action.tag === state.albumsTag) {
+				albums = !state.albums
+			}
+			return Object.assign({}, state, {albums, albumsTag: action.tag})
 
 		case TOGGLE_ANIMATION:
 			return Object.assign({}, state, {animation: !state.animation})
