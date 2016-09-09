@@ -21,6 +21,17 @@ class Songs extends React.Component {
 		}
 	}
 
+	renderTitle (song) {
+		let track = song.track
+		if (!track) return span('.song-title', song.title)
+
+		const splits = track.split('/')
+		if (splits) [track] = splits
+		if (track.length === 1) track = '0' + track
+
+		return span('.song-title', `${track} – ${song.title}`)
+	}
+
 	render () {
 		if (!this.props.album) return null
 
@@ -32,7 +43,7 @@ class Songs extends React.Component {
 				ul(this.props.album.songs.map((s) =>
 					li({ className: cx({ selected: this.props.song.title === s.title }),
 						key: s.id, onClick: () => this.props.playId(s.id) },
-						[ span('.song-title', s.title), span('.song-duration', toHHMMSS(s.time)) ]))) ])
+						[ this.renderTitle(s) , span('.song-duration', toHHMMSS(s.time)) ]))) ])
 		)
 	}
 }
