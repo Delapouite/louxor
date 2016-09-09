@@ -1,9 +1,11 @@
 import { createStore, applyMiddleware, compose } from 'redux'
+import thunk from 'redux-thunk'
+
 import reducer from '../reducers'
 import socketMiddleware from './socket'
 
 export default (initialState) =>
 	createStore(reducer, initialState, compose(
-		applyMiddleware(socketMiddleware),
+		applyMiddleware(thunk, socketMiddleware),
 		window.devToolsExtension ? window.devToolsExtension() : f => f
 	))

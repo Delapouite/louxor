@@ -49,6 +49,7 @@
     "react-motion": "^0.4.4",
     "react-redux": "^4.4.5",
     "redux": "^3.5.2",
+    "redux-thunk": "^2.1.0",
     "screenfull": "^3.0.2",
     "socket.io": "^1.4.8",
     "socket.io-client": "^1.4.8",

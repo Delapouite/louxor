@@ -19,7 +19,7 @@ export const receiveResults = (command, results) => {
 	switch (command) {
 		case 'artist':
 		case 'date':
-			return { type: FETCH_ALBUMS_SUCCESS, albums: results }
+			return { type: FETCH_ALBUMS_SUCCESS, albums: results, tag: command }
 
 		case 'currentAlbum':
 			return { type: FETCH_CURRENT_ALBUM_SUCCESS, currentAlbum: results }
@@ -39,7 +39,14 @@ export const playId = (id) => ({ type: SEND_MPC_COMMAND, command: 'playId', args
 export const toggleRandom = () => ({ type: SEND_MPC_COMMAND, command: 'random' })
 
 // queries
-export const fetchAlbums = (song, tag) => ({ type: SEND_MPC_QUERY, command: tag, args: [song[tag]] })
+export const fetchAlbums = (song, tag) => (dispatch, getState) => {
+	const cache = getCache(getState(), `${tag}-${song[tag]}`)
+	if (!cache) {
+		return dispatch({ type: SEND_MPC_QUERY, command: tag, args: [song[tag]] })
+	} else {
+		return dispatch(receiveResults(tag, cache))
+	}
+}
 export const fetchCurrentAlbum = () => ({ type: SEND_MPC_QUERY, command: 'currentAlbum' })
 
 // ui
@@ -47,3 +54,11 @@ export const fetchCurrentAlbum = () => ({ type: SEND_MPC_QUERY, command: 'curren
 export const toggleAlbums = (tag, force) => ({ type: TOGGLE_ALBUMS, tag, force })
 export const toggleAnimation = () => ({ type: TOGGLE_ANIMATION })
 export const flip = () => ({ type: FLIP })
+
+// cache
+const getCache = ({ cache }, key) => {
+	const c = cache && cache[key]
+	if (!c) return null
+	if (Date.now() - c.ts > 1000 * 60 * 5) return null
+	return c.data
+}
