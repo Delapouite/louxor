@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { PropTypes } from 'react'
 import { connect } from 'react-redux'
 import { default as cx } from 'classnames'
 import { button, div, i, li, ul, span } from 'react-hyperscript-helpers'
@@ -12,20 +12,24 @@ class Songs extends React.Component {
 	}
 
 	componentWillReceiveProps (nextProps) {
-		if (this.props.currentAlbum && this.props.currentAlbum.title !== nextProps.song.album) {
-			this.props.fetchCurrentAlbum()
+		const { album, fetchCurrentAlbum } = this.props
+		if (!album) return
+
+		if (album.title !== nextProps.song.album
+			&& nextProps.album.title !== nextProps.song.album) {
+			fetchCurrentAlbum()
 		}
 	}
 
 	render () {
-		if (!this.props.currentAlbum) return null
+		if (!this.props.album) return null
 
 		return (
 			div('.songs', [
 				button('.material-button.close-songs',
 					{ key: 'close', onClick: () => this.props.flip() }, [
 					i('.material-icons', 'close')]),
-				ul(this.props.currentAlbum.songs.map((s) =>
+				ul(this.props.album.songs.map((s) =>
 					li({ className: cx({ selected: this.props.song.title === s.title }),
 						key: s.id, onClick: () => this.props.playId(s.id) },
 						[ span('.song-title', s.title), span('.song-duration', toHHMMSS(s.time)) ]))) ])
@@ -33,7 +37,12 @@ class Songs extends React.Component {
 	}
 }
 
-const mapStateToProps = (state) => ({ currentAlbum: state.mpc.currentAlbum })
+Songs.propTypes = {
+	album: PropTypes.object,
+	song: PropTypes.object
+}
+
+const mapStateToProps = (state) => ({ album: state.mpc.currentAlbum })
 
 export default connect(mapStateToProps, { fetchCurrentAlbum, flip, playId })(Songs)
 
