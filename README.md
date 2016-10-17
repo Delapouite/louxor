@@ -53,6 +53,6 @@ Since a web browser still can't open a TCP socket directly, Louxor acts as a [No
 
 (MPD should be running)
 
-`npm start`
+`npm start` (or run `louxor` if you installed this package globally)
 
 Open `http://localhost:44190`
