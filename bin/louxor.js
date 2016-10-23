@@ -1,5 +1,19 @@
 #!/usr/bin/env node
 
 const serve = require('./../src/server')
+const argv = require('yargs')
+	.option('p', {
+		alias: 'port',
+		type: 'number',
+		default: 44190 // clisson
+	})
+	.option('b', {
+		alias: 'browser',
+		type: 'boolean',
+		default: false
+	})
+	.option('h', { alias: 'help' })
+	.help('h')
+	.argv
 
-serve(Number(process.argv[2]) || 44190)
+serve(argv)

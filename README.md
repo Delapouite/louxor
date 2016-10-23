@@ -47,12 +47,18 @@ Since a web browser still can't open a TCP socket directly, Louxor acts as a [No
 
 ## Install
 
-`npm i`
+`npm i -g louxor`
 
 ## Usage
 
 (MPD should be running)
 
-`npm start` (or run `louxor` if you installed this package globally)
+`louxor`
 
-Open `http://localhost:44190`
+then, open `http://localhost:44190`
+
+or with more control:
+
+`louxor -p 42000 -b`
+
+In this case `-b` opens your default web browser automatically on the port specified by `-p`
