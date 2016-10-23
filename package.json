@@ -1,6 +1,6 @@
 {
   "name": "louxor",
-  "version": "1.3.0",
+  "version": "1.4.0",
   "description": "A web player frontend for MPD",
   "bin": {
     "louxor": "bin/louxor.js"
