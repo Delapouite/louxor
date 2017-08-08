@@ -3,7 +3,7 @@
 import React from 'react'
 import { connect } from 'react-redux'
 import { default as cx } from 'classnames'
-import { button, div, h, i, img } from 'react-hyperscript-helpers'
+import { button, div, h, i, img, span } from 'react-hyperscript-helpers'
 import { Motion, TransitionMotion, spring } from 'react-motion'
 
 import { toggleAlbums, fetchAlbums, playId, changeRows } from '../actions'
@@ -24,14 +24,22 @@ const _Album = ({ album, currentAlbum, tag, playId, style }) => {
 const Album = connect(null, { playId })(_Album)
 
 class Albums extends React.Component {
+
+	date = 0
+
 	componentWillReceiveProps ({ show, song, tag }) {
 		if (!show) return
 
 		if (!this.props.show
 			|| this.props.song.album !== song.album
 			|| this.props.tag !== tag) {
-			this.props.fetchAlbums(song, tag)
+			this.fetchAlbums(song, tag)
 		}
+	}
+
+	fetchAlbums (song, tag) {
+		this.date = song.date
+		this.props.fetchAlbums(song, tag)
 	}
 
 	render () {
@@ -76,14 +84,21 @@ class Albums extends React.Component {
 				h(Motion, motionProps, [(motionStyle) =>
 					div('.albums', {key: 'albums', style: motionStyle}, [ transitionStyles.map(({ key, style, data }) =>
 						h(Album, { key, style, tag: this.props.tag, album: data, currentAlbum: this.props.song.album })),
-						div('.buttons', [
-							this.props.rows <= 1 ? null : button('.material-button.expand-albums',
+						! this.props.show ? null : div('.buttons', [
+							this.props.tag !== 'date' ? null : span(this.date),
+							this.props.tag !== 'date' ? null : button('.material-button',
+								{ onClick: () => this.fetchAlbums({...this.props.song, date: this.date - 1 }, 'date') }, [
+								i('.material-icons', 'keyboard_arrow_left') ]),
+							this.props.tag !== 'date' ? null : button('.material-button',
+								{ onClick: () => this.fetchAlbums({...this.props.song, date: this.date + 1 }, 'date') }, [
+								i('.material-icons', 'keyboard_arrow_right') ]),
+							this.props.rows <= 1 ? null : button('.material-button',
 								{ onClick: () => this.props.changeRows(-1) }, [
 								i('.material-icons', 'vertical_align_bottom') ]),
-							button('.material-button.expand-albums',
+							button('.material-button',
 								{ onClick: () => this.props.changeRows(1) }, [
 								i('.material-icons', 'vertical_align_top') ]),
-							button('.material-button.close-albums',
+							button('.material-button',
 								{ onClick: () => this.props.toggleAlbums(null, false) }, [
 								i('.material-icons', 'close') ])
 						])
