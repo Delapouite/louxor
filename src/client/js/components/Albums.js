@@ -6,7 +6,7 @@ import { default as cx } from 'classnames'
 import { button, div, h, i, img } from 'react-hyperscript-helpers'
 import { Motion, TransitionMotion, spring } from 'react-motion'
 
-import { toggleAlbums, fetchAlbums, playId } from '../actions'
+import { toggleAlbums, fetchAlbums, playId, changeRows } from '../actions'
 import { getCoverURL } from './Cover'
 
 const _Album = ({ album, currentAlbum, tag, playId, style }) => {
@@ -61,9 +61,10 @@ class Albums extends React.Component {
 
 		// Motion, for toggling the albums panel
 
+		const height = 135 * this.props.rows
 		const toggleHeight = this.props.animation
-			? spring(this.props.show ? 135 : 0, springProps)
-			: this.props.show ? 135 : 0
+			? spring(this.props.show ? height : 0, springProps)
+			: this.props.show ? height : 0
 
 		const motionProps = {
 			defaultStyle: { height: 0 },
@@ -72,13 +73,22 @@ class Albums extends React.Component {
 
 		return (
 			h(TransitionMotion, transitionProps, [(transitionStyles) =>
-				h(Motion, motionProps, [(motionStyle) => {
-					return div('.albums', {key: 'albums', style: motionStyle}, [ transitionStyles.map(({ key, style, data }) =>
+				h(Motion, motionProps, [(motionStyle) =>
+					div('.albums', {key: 'albums', style: motionStyle}, [ transitionStyles.map(({ key, style, data }) =>
 						h(Album, { key, style, tag: this.props.tag, album: data, currentAlbum: this.props.song.album })),
-						button('.material-button.close-albums', { onClick: () => this.props.toggleAlbums(null, false) }, [
-							i('.material-icons', 'close') ])
+						div('.buttons', [
+							this.props.rows <= 1 ? null : button('.material-button.expand-albums',
+								{ onClick: () => this.props.changeRows(-1) }, [
+								i('.material-icons', 'vertical_align_bottom') ]),
+							button('.material-button.expand-albums',
+								{ onClick: () => this.props.changeRows(1) }, [
+								i('.material-icons', 'vertical_align_top') ]),
+							button('.material-button.close-albums',
+								{ onClick: () => this.props.toggleAlbums(null, false) }, [
+								i('.material-icons', 'close') ])
+						])
 					])
-				}])
+				])
 			])
 		)
 	}
@@ -87,7 +97,8 @@ class Albums extends React.Component {
 const mapStateToProps = ({ mpc, ui }) => ({
 	albums: mpc.albums,
 	animation: ui.animation,
-	tag: ui.albumsTag
+	tag: ui.albumsTag,
+	rows: ui.rows,
 })
 
-export default connect(mapStateToProps, { toggleAlbums, fetchAlbums })(Albums)
+export default connect(mapStateToProps, { toggleAlbums, fetchAlbums, changeRows })(Albums)

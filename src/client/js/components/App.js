@@ -11,9 +11,8 @@ import Player from './Player'
 import Albums from './Albums'
 
 class App extends React.Component {
-	constructor () {
-		super()
-		this.state = { search: '' }
+	state = {
+		search: ''
 	}
 
 	componentDidMount () {

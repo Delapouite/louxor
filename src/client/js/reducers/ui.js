@@ -1,10 +1,11 @@
-import { FLIP, TOGGLE_ALBUMS, TOGGLE_ANIMATION } from '../actions/'
+import { FLIP, TOGGLE_ALBUMS, TOGGLE_ANIMATION, CHANGE_ROWS } from '../actions/'
 
 const initialState = {
 	albums: false, // bottom panel opened?
 	albumsTag: null, // what's inside the bottom panel? albums by artist or date?
+	rows: 1, // how many rows in the albums panel ?
 	flipped: false, // songs list visible?
-	animation: false // disable for low end devices
+	animation: false, // disable for low end devices
 }
 
 export default (state = initialState, action) => {
@@ -16,13 +17,16 @@ export default (state = initialState, action) => {
 			} else if (!state.albumsTag || action.tag === state.albumsTag) {
 				albums = !state.albums
 			}
-			return Object.assign({}, state, {albums, albumsTag: action.tag})
+			return {...state, albums, albumsTag: action.tag}
+
+		case CHANGE_ROWS:
+			return {...state, rows: state.rows + action.diff}
 
 		case TOGGLE_ANIMATION:
-			return Object.assign({}, state, {animation: !state.animation})
+			return {...state, animation: !state.animation}
 
 		case FLIP:
-			return Object.assign({}, state, {flipped: !state.flipped})
+			return {...state, flipped: !state.flipped}
 
 		default:
 			return state

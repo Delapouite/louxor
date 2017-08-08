@@ -10,6 +10,7 @@ export const FETCH_FAILURE = 'FETCH_FAILURE'
 
 // ui
 export const TOGGLE_ALBUMS = 'TOGGLE_ALBUMS'
+export const CHANGE_ROWS = 'CHANGE_ROWS'
 export const TOGGLE_ANIMATION = 'TOGGLE_ANIMATION'
 export const FLIP = 'FLIP'
 
@@ -52,6 +53,7 @@ export const fetchCurrentAlbum = () => ({ type: SEND_MPC_QUERY, command: 'curren
 // ui
 // tag = 'artist' or 'date'
 export const toggleAlbums = (tag, force) => ({ type: TOGGLE_ALBUMS, tag, force })
+export const changeRows = (diff) => ({ type: CHANGE_ROWS, diff })
 export const toggleAnimation = () => ({ type: TOGGLE_ANIMATION })
 export const flip = () => ({ type: FLIP })
 
