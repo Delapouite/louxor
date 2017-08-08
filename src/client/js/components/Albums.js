@@ -85,6 +85,7 @@ class Albums extends React.Component {
 					div('.albums', {key: 'albums', style: motionStyle}, [ transitionStyles.map(({ key, style, data }) =>
 						h(Album, { key, style, tag: this.props.tag, album: data, currentAlbum: this.props.song.album })),
 						! this.props.show ? null : div('.buttons', [
+							span(`${this.props.albums.length} albums`),
 							this.props.tag !== 'date' ? null : span(this.date),
 							this.props.tag !== 'date' ? null : button('.material-button',
 								{ onClick: () => this.fetchAlbums({...this.props.song, date: this.date - 1 }, 'date') }, [
