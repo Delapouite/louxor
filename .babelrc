@@ -1,4 +1,15 @@
 {
-	"presets": ["stage-2", "es2015"]
+  "presets": [
+    [
+      "env",
+      {
+        "targets": {
+          "browsers": [
+            "last 2 versions"
+          ]
+        }
+      }
+    ],
+    "stage-2"
+  ]
 }
-
