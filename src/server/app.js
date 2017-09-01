@@ -1,5 +1,6 @@
 const Promise = require('bluebird')
-const fs = Promise.promisifyAll(require('fs'))
+const { promisify } = require('util')
+const fs = require('fs')
 const path = require('path')
 const { homedir } = require('os')
 const trumpet = require('trumpet')
@@ -13,6 +14,8 @@ const { getTitle } = require('../shared/util')
 
 const MUSIC_ROOT = homedir() + '/music/'
 const COVER_FORMATS = ['.jpg', '.png']
+
+const stat = promisify(fs.stat)
 
 const app = express()
 
@@ -57,11 +60,10 @@ app.get('/art/:songFile?', (req, res) => {
 		: dir + '/cover'
 
 	const stats = COVER_FORMATS.map((ext) =>
-		fs.statAsync(MUSIC_ROOT + coverPath + ext).then(() => ext))
+		stat(MUSIC_ROOT + coverPath + ext).then(() => ext))
 
-	Promise.some(stats, 1).then(([format]) => {
-		sendCover(res, coverPath + format, size)
-	})
+	Promise.some(stats, 1).then(([format]) =>
+		sendCover(res, coverPath + format, size))
 	.catch(() => sendDefaultCover(res))
 })
 

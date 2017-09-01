@@ -1,19 +1,21 @@
-const Promise = require('bluebird')
+const { promisify } = require('util')
 const mpcpp = require('mpcpp')
 const mpc = mpcpp.connect()
 const log = require('debug')('mpc')
 
+// monkey patch
 ;['status', 'currentSong'].forEach((f) => {
-	mpc[f] = Promise.promisify(mpc[f])
+	mpc[f] = promisify(mpc[f])
 })
 
-mpc.refresh = () =>
-	Promise.all([
+mpc.refresh = async () => {
+	await Promise.all([
 		mpc.status(),
-		mpc.currentSong()
+		mpc.currentSong(),
 	])
-	.then(() => mpc.state)
-	.tap((state) => log('state', state))
+	log('state', mpc.state)
+	return mpc.state
+}
 
 // init
 mpc
