@@ -17,12 +17,8 @@ mpc.refresh = () =>
 
 // init
 mpc
-.on('ready', () => {
-	log('ready')
-})
-.on('system', (sub) => {
-	log('system', sub)
-})
+.on('ready', () => log('ready'))
+.on('system', (sub) => log('system', sub))
 .on('error', (err) => {
 	if (err.code === 'ECONNREFUSED') {
 		log('Can\'t connect to MPD on port 6600. Make sure the daemon is running')
