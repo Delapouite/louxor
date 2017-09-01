@@ -32,10 +32,7 @@ export class BackgroundCover extends React.Component {
 }
 
 class Progress extends React.Component {
-	constructor (props) {
-		super(props)
-		this.state = { elapsed: Number(this.props.elapsed || 0) }
-	}
+	state = { elapsed: Number(this.props.elapsed || 0) }
 
 	componentDidMount () {
 		this.interval = setInterval(() => this.tick(), 1000)
@@ -95,5 +92,4 @@ const _Cover = ({ status, song, flipped, flip }) => {
 const mapStateToProps = (state) => ({ flipped: state.ui.flipped })
 
 export const Cover = connect(mapStateToProps, { flip })(_Cover)
-
 
