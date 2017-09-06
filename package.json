@@ -37,11 +37,11 @@
   "homepage": "https://github.com/delapouite/louxor",
   "license": "ISC",
   "dependencies": {
-    "bluebird": "^3.4.3",
+    "bluebird": "^3.5.0",
     "classnames": "^2.2.5",
-    "compression": "^1.6.2",
-    "debug": "^2.2.0",
-    "express": "^4.14.0",
+    "compression": "^1.7.0",
+    "debug": "^3.0.1",
+    "express": "^4.15.4",
     "gm": "^1.23.0",
     "mpcpp": "^1.5.0",
     "opn": "^5.1.0",
@@ -53,12 +53,12 @@
     "react-redux": "^5.0.6",
     "redux": "^3.7.2",
     "redux-thunk": "^2.2.0",
-    "screenfull": "^3.0.2",
-    "socket.io": "^1.4.8",
-    "socket.io-client": "^1.4.8",
+    "screenfull": "^3.3.1",
+    "socket.io": "^2.0.3",
+    "socket.io-client": "^2.0.3",
     "stylus": "^0.54.5",
     "trumpet": "^1.7.2",
-    "yargs": "^6.3.0"
+    "yargs": "^8.0.2"
   },
   "devDependencies": {
     "babel-plugin-transform-flow-strip-types": "^6.22.0",
