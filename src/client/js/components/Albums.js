@@ -58,7 +58,7 @@ class Albums extends Component<AlbumsProps> {
 
 	renderButtons () {
 		return div('.buttons', [
-			span(`${this.props.albums.length} albums`),
+			!this.props.albums ? null : span(`${this.props.albums.length} albums`),
 			this.props.tag !== 'date' ? null : span(this.date),
 			this.props.tag !== 'date' ? null : button('.material-button',
 				{ onClick: () => this.fetchAlbums({...this.props.song, date: this.date - 1 }, 'date') }, [
