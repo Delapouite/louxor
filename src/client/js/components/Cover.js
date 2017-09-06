@@ -1,4 +1,6 @@
-import React from 'react'
+// @flow
+
+import { Component } from 'react'
 import { connect } from 'react-redux'
 import { default as cx } from 'classnames'
 import { div, h, img } from 'react-hyperscript-helpers'
@@ -6,14 +8,14 @@ import { div, h, img } from 'react-hyperscript-helpers'
 import { flip } from '../actions'
 import Songs from './Songs'
 
-export const getCoverURL = (song, size) => {
+export const getCoverURL = (song: Song, size: ?number) => {
 	const URL = song && song.file
 		? '/art/' + encodeURIComponent(song.file)
 		: '/art'
 	return size ? URL + '?size=' + size : URL
 }
 
-	// do not refresh if same album to avoid flash
+// do not refresh if same album to avoid flash
 const shouldImageUpdate = (props, nextProps) => {
 	// singles can have their own cover
 	if (nextProps.song.album === 'singles') return true
@@ -21,17 +23,36 @@ const shouldImageUpdate = (props, nextProps) => {
 	return props.song.album !== nextProps.song.album
 }
 
-export class BackgroundCover extends React.Component {
-	shouldComponentUpdate (nextProps) {
+type BackgroundCoverProps = {
+	song: Song,
+}
+
+export class BackgroundCover extends Component<BackgroundCoverProps> {
+
+	shouldComponentUpdate (nextProps: BackgroundCoverProps) {
 		return shouldImageUpdate(this.props, nextProps)
 	}
 
 	render () {
-		return div('.background-cover', { style: { backgroundImage: 'url("' + getCoverURL(this.props.song, 100) + '")' }})
+		return div('.background-cover', {
+			style: { backgroundImage: 'url("' + getCoverURL(this.props.song, 100) + '")' }})
 	}
 }
 
-class Progress extends React.Component {
+type ProgressProps = {
+	elapsed: number,
+	paused: boolean,
+	total: number,
+}
+
+type ProgressState = {
+	elapsed: number
+}
+
+class Progress extends Component<ProgressProps, ProgressState> {
+
+	interval: number
+
 	state = { elapsed: Number(this.props.elapsed || 0) }
 
 	componentDidMount () {
@@ -65,7 +86,12 @@ class Progress extends React.Component {
 	}
 }
 
-class Art extends React.Component {
+type ArtProps = {
+	song: Song
+}
+
+class Art extends Component<ArtProps> {
+
 	shouldComponentUpdate (nextProps) {
 		return shouldImageUpdate(this.props, nextProps)
 	}

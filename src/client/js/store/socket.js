@@ -28,7 +28,7 @@ export default store => next => action => {
 		// queries expect results
 		case SEND_MPC_QUERY:
 			socket.emit('mpc.query', action.command, action.args)
-			break;
+			break
 
 		default:
 			return next(action)

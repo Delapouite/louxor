@@ -45,9 +45,9 @@
     "gm": "^1.23.0",
     "mpcpp": "^1.5.0",
     "opn": "^4.0.2",
-    "react": "^15.3.1",
-    "react-document-title": "^2.0.2",
-    "react-dom": "^15.3.1",
+    "react": "^15.6.1",
+    "react-document-title": "^2.0.3",
+    "react-dom": "^15.6.1",
     "react-hyperscript-helpers": "^1.2.0",
     "react-motion": "^0.4.4",
     "react-redux": "^4.4.5",
@@ -61,6 +61,7 @@
     "yargs": "^6.3.0"
   },
   "devDependencies": {
+    "babel-plugin-transform-flow-strip-types": "^6.22.0",
     "babel-preset-env": "^1.6.0",
     "babel-preset-stage-2": "^6.24.1",
     "babelify": "^7.3.0",

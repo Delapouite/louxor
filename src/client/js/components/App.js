@@ -1,4 +1,6 @@
-import React from 'react'
+// @flow
+
+import { Component } from 'react'
 import { connect } from 'react-redux'
 import DocumentTitle from 'react-document-title'
 import screenfull from 'screenfull'
@@ -10,7 +12,19 @@ import { BackgroundCover } from './Cover'
 import Player from './Player'
 import Albums from './Albums'
 
-class App extends React.Component {
+type Props = {
+	mpc: Object,
+	ui: Object,
+	// actions
+	fetchAlbums: typeof fetchAlbums,
+	toggleAnimation: typeof toggleAnimation,
+}
+
+type State = {
+	search: string
+}
+
+class App extends Component<Props, State> {
 	state = {
 		search: ''
 	}

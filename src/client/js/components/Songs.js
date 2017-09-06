@@ -1,4 +1,6 @@
-import React, { PropTypes } from 'react'
+// @flow
+
+import { Component } from 'react'
 import { connect } from 'react-redux'
 import { default as cx } from 'classnames'
 import { button, div, i, li, ul, span } from 'react-hyperscript-helpers'
@@ -6,7 +8,17 @@ import { button, div, i, li, ul, span } from 'react-hyperscript-helpers'
 import { fetchCurrentAlbum, flip, playId } from '../actions'
 import { toHHMMSS } from '../../../shared/util'
 
-class Songs extends React.Component {
+type Props = {
+	album: Object,
+	song: Object,
+	// actions
+	fetchCurrentAlbum: typeof fetchCurrentAlbum,
+	flip: typeof flip,
+	playId: typeof playId,
+}
+
+class Songs extends Component<Props> {
+
 	componentWillMount () {
 		this.props.fetchCurrentAlbum()
 	}
@@ -22,7 +34,7 @@ class Songs extends React.Component {
 	}
 
 	renderTitle (song) {
-		let track = song.track
+		let { track } = song
 		if (!track) return span('.song-title', song.title)
 
 		const splits = track.split('/')
@@ -46,11 +58,6 @@ class Songs extends React.Component {
 						[ this.renderTitle(s) , span('.song-duration', toHHMMSS(s.time)) ]))) ])
 		)
 	}
-}
-
-Songs.propTypes = {
-	album: PropTypes.object,
-	song: PropTypes.object
 }
 
 const mapStateToProps = (state) => ({ album: state.mpc.currentAlbum })

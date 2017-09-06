@@ -1,6 +1,7 @@
+// @flow
 // This component is displayed at the bottom of App after a search
 
-import React from 'react'
+import { Component } from 'react'
 import { connect } from 'react-redux'
 import { default as cx } from 'classnames'
 import { button, div, h, i, img, span } from 'react-hyperscript-helpers'
@@ -23,7 +24,20 @@ const _Album = ({ album, currentAlbum, tag, playId, style }) => {
 
 const Album = connect(null, { playId })(_Album)
 
-class Albums extends React.Component {
+type AlbumsProps = {
+	albums: Array<Object>,
+	animation: number,
+	rows: number,
+	song: Object,
+	show: boolean,
+	tag: string,
+	// actions
+	changeRows: typeof changeRows,
+	fetchAlbums: typeof fetchAlbums,
+	toggleAlbums: typeof toggleAlbums,
+}
+
+class Albums extends Component<AlbumsProps> {
 
 	date = 0
 
@@ -80,12 +94,12 @@ class Albums extends React.Component {
 			defaultStyles: albums.map((a) => ({
 				key: a.title,
 				style: { width: shrinkWidth },
-				data: a
+				data: a,
 			})),
 			styles: albums.map((a) => ({
 				key: a.title,
 				style: { width: spring(expandWidth) },
-				data: a
+				data: a,
 			}))
 		}
 
@@ -98,7 +112,7 @@ class Albums extends React.Component {
 
 		const motionProps = {
 			defaultStyle: { height: 0 },
-			style: { height: toggleHeight }
+			style: { height: toggleHeight },
 		}
 
 		const buttons = this.props.show ? this.renderButtons() : null
