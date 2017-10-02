@@ -30,7 +30,7 @@ type AlbumsProps = {
 	rows: number,
 	song: Object,
 	show: boolean,
-	tag: string,
+	tag: 'date' | 'artist',
 	// actions
 	changeRows: typeof changeRows,
 	fetchAlbums: typeof fetchAlbums,
@@ -59,7 +59,7 @@ class Albums extends Component<AlbumsProps> {
 	renderButtons () {
 		return div('.buttons', [
 			!this.props.albums ? null : span(`${this.props.albums.length} albums`),
-			this.props.tag !== 'date' ? null : span(this.date),
+			this.props.tag !== 'date' ? span(this.props.song.artist) : span(this.date),
 			this.props.tag !== 'date' ? null : button('.material-button',
 				{ onClick: () => this.fetchAlbums({...this.props.song, date: this.date - 1 }, 'date') }, [
 				i('.material-icons', 'keyboard_arrow_left') ]),
