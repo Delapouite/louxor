@@ -1,3 +1,5 @@
+// @flow
+
 import { connect } from 'react-redux'
 import { default as cx } from 'classnames'
 import { a, button, div, i } from 'react-hyperscript-helpers'

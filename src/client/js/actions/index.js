@@ -1,3 +1,5 @@
+// @flow
+
 // network
 export const CONNECT = 'CONNECT'
 
@@ -15,8 +17,8 @@ export const TOGGLE_ANIMATION = 'TOGGLE_ANIMATION'
 export const FLIP = 'FLIP'
 
 
-export const receiveMpcState = (state) => ({ type: FETCH_MPC_STATE_SUCCESS, state })
-export const receiveResults = (command, results) => {
+export const receiveMpcState = (state: MpcState) => ({ type: FETCH_MPC_STATE_SUCCESS, state })
+export const receiveResults = (command: string, results: any) => {
 	switch (command) {
 		case 'artist':
 		case 'date':
@@ -34,13 +36,13 @@ export const receiveResults = (command, results) => {
 export const togglePlay = () => ({ type: SEND_MPC_COMMAND, command: 'toggle' })
 export const prevSong = () => ({ type: SEND_MPC_COMMAND, command: 'previous' })
 export const nextSong = () => ({ type: SEND_MPC_COMMAND, command: 'next' })
-export const playId = (id) => ({ type: SEND_MPC_COMMAND, command: 'playId', args: [id] })
+export const playId = (id: number) => ({ type: SEND_MPC_COMMAND, command: 'playId', args: [id] })
 
 // mpc options
 export const toggleRandom = () => ({ type: SEND_MPC_COMMAND, command: 'random' })
 
 // queries
-export const fetchAlbums = (song, tag) => (dispatch, getState) => {
+export const fetchAlbums = (song: { artist: string }, tag: string) => (dispatch: Function, getState: () => Object) => {
 	const cache = getCache(getState(), `${tag}-${song[tag]}`)
 	if (!cache) {
 		return dispatch({ type: SEND_MPC_QUERY, command: tag, args: [song[tag]] })
@@ -52,8 +54,8 @@ export const fetchCurrentAlbum = () => ({ type: SEND_MPC_QUERY, command: 'curren
 
 // ui
 // tag = 'artist' or 'date'
-export const toggleAlbums = (tag, force) => ({ type: TOGGLE_ALBUMS, tag, force })
-export const changeRows = (diff) => ({ type: CHANGE_ROWS, diff })
+export const toggleAlbums = (tag: ?string, force: boolean) => ({ type: TOGGLE_ALBUMS, tag, force })
+export const changeRows = (diff: number) => ({ type: CHANGE_ROWS, diff })
 export const toggleAnimation = () => ({ type: TOGGLE_ANIMATION })
 export const flip = () => ({ type: FLIP })
 

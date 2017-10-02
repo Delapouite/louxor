@@ -66,6 +66,7 @@
     "babel-preset-stage-2": "^6.24.1",
     "babelify": "^7.3.0",
     "browserify": "^14.4.0",
+    "flow-bin": "^0.56.0",
     "npm-run-all": "^4.1.1",
     "stylus": "^0.54.5",
     "uglify-js": "^3.0.28",

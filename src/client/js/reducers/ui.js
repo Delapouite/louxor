@@ -1,4 +1,14 @@
+// @flow
+
 import { FLIP, TOGGLE_ALBUMS, TOGGLE_ANIMATION, CHANGE_ROWS } from '../actions/'
+
+type State = {
+	albums: boolean,
+	albumsTag: ?string,
+	rows: number,
+	flipped: boolean,
+	animation: boolean,
+}
 
 const initialState = {
 	albums: false, // bottom panel opened?
@@ -8,7 +18,7 @@ const initialState = {
 	animation: false, // disable for low end devices
 }
 
-export default (state = initialState, action) => {
+export default (state: State = initialState, action: Object) => {
 	switch (action.type) {
 		case TOGGLE_ALBUMS:
 			var albums = state.albumsTag

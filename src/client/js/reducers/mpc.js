@@ -1,13 +1,29 @@
+// @flow
+
 import { FETCH_MPC_STATE_SUCCESS, FETCH_ALBUMS_SUCCESS, FETCH_CURRENT_ALBUM_SUCCESS } from '../actions/'
 
-const initialState = {
+type Action = {
+	type: string,
+	albums: Array<Object>,
+	state: Object,
+	currentAlbum: Object,
+}
+
+type State = {
+	status: Object,
+	currentSong: Object,
+	currentAlbum: Object,
+	albums: Array<Object>,
+}
+
+const initialState: State = {
 	status: {},
 	currentSong: {},
 	currentAlbum: {},
 	albums: []
 }
 
-export default (state = initialState, action) => {
+export default (state: State = initialState, action: Action) => {
 	switch (action.type) {
 		case FETCH_MPC_STATE_SUCCESS:
 			return Object.assign({}, state, action.state)
