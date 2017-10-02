@@ -3,6 +3,7 @@
 declare type Song = {
 	album: string,
 	artist: string,
+	title: string,
 	file: string,
 }
 

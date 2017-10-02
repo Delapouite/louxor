@@ -1,3 +1,5 @@
+// @flow
+
 const Promise = require('bluebird')
 const { promisify } = require('util')
 const fs = require('fs')

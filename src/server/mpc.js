@@ -1,3 +1,5 @@
+// @flow
+
 const { promisify } = require('util')
 const mpcpp = require('mpcpp')
 const mpc = mpcpp.connect()

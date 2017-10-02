@@ -1,8 +1,10 @@
-exports.getTitle = (status, song) => `${status.paused ? '▮▮' : '▶'} ${song.title} - ${song.artist}`
+// @flow
 
-const pad = (n) => String(n).padStart(2, 0)
+exports.getTitle = (status /*: MpcState */, song /*: Song */) => `${status.paused ? '▮▮' : '▶'} ${song.title} - ${song.artist}`
 
-exports.toHHMMSS = (secs) => {
+const pad = (n /*: number */) => String(n).padStart(2, '0')
+
+exports.toHHMMSS = (secs /*: number */) => {
 	secs = Number(secs || 0)
 	let hours = Math.floor(secs / 3600)
 	let minutes = Math.floor((secs - (hours * 3600)) / 60)

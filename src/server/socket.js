@@ -1,3 +1,5 @@
+// @flow
+
 const sio = require('socket.io')
 const { COMMANDS: { PLAYBACK, OPTIONS_TOGGLES } } = require('mpcpp')
 const log = require('debug')('io')
@@ -30,7 +32,7 @@ const sendQueryToMPD = (socket) => (cmd, args = []) => {
 	args ? mpc[cmd](args[0], cb) : mpc[cmd](cb)
 }
 
-module.exports = (server) => {
+module.exports = (server /*: Object */) => {
 	const io = sio(server)
 
 	const broadcastRefresh = () =>
