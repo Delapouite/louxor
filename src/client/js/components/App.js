@@ -39,6 +39,7 @@ class App extends Component<Props, State> {
 	}
 
 	render () {
+		const { ui } = this.props
 		const { currentSong, status } = this.props.mpc
 		const fullScreen = () => { if (screenfull.enabled) screenfull.request() }
 
@@ -47,16 +48,16 @@ class App extends Component<Props, State> {
 				div('.app', [
 					h(BackgroundCover, { song: currentSong }),
 					button('.material-button.animation', { onClick: () => this.props.toggleAnimation() }, [
-						i('.material-icons', this.props.ui.animation ? 'flash_on' : 'flash_off')
+						i('.material-icons', ui.animation ? 'flash_on' : 'flash_off')
 					]),
-					this.props.ui.albums && form('.search-form', { onSubmit: (e) => this.handleSubmit(e) }, [
+					ui.albums && form('.search-form', { onSubmit: (e) => this.handleSubmit(e) }, [
 						input('.search-input', { onChange: ({ target }) => { this.setState({ search: target.value }) }, value: this.state.search })
 					]),
 					!screenfull.isFullscreen && button('.material-button.fullscreen', { onClick: fullScreen }, [
 						i('.material-icons', 'fullscreen')
 					]),
 					h(Player, { song: currentSong, status }),
-					h(Albums, { song: currentSong, show: this.props.ui.albums }) ]) ])
+					h(Albums, { song: currentSong, show: ui.albums }) ]) ])
 		)
 	}
 }

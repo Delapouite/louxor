@@ -15,6 +15,7 @@ export const TOGGLE_ALBUMS = 'TOGGLE_ALBUMS'
 export const CHANGE_ROWS = 'CHANGE_ROWS'
 export const TOGGLE_ANIMATION = 'TOGGLE_ANIMATION'
 export const FLIP = 'FLIP'
+export const EXTEND = 'EXTEND'
 
 
 export const receiveMpcState = (state: MpcState) => ({ type: FETCH_MPC_STATE_SUCCESS, state })
@@ -58,6 +59,7 @@ export const toggleAlbums = (tag: ?string, force?: boolean) => ({ type: TOGGLE_A
 export const changeRows = (diff: number) => ({ type: CHANGE_ROWS, diff })
 export const toggleAnimation = () => ({ type: TOGGLE_ANIMATION })
 export const flip = () => ({ type: FLIP })
+export const extend = () => ({ type: EXTEND })
 
 // cache
 const getCache = ({ cache }, key) => {
