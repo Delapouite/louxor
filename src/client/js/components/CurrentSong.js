@@ -5,7 +5,13 @@ import { div, span } from 'react-hyperscript-helpers'
 
 import { flip, toggleAlbums } from '../actions'
 
-const CurrentSong = ({ flip, song, toggleAlbums }) => {
+type Props = {
+	flip: typeof flip,
+	song: Song,
+	toggleAlbums: typeof toggleAlbums,
+}
+
+const CurrentSong = ({ flip, song, toggleAlbums }: Props) => {
 	let { album, artist, title, date, track } = song
 
 	return (

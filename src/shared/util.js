@@ -1,6 +1,6 @@
 // @flow
 
-exports.getTitle = (status /*: MpcState */, song /*: Song */) => `${status.paused ? '▮▮' : '▶'} ${song.title} - ${song.artist}`
+exports.getTitle = (status /*: MpcStatus */, song /*: Song */) => `${status.paused ? '▮▮' : '▶'} ${song.title} - ${song.artist}`
 
 const pad = (n /*: number */) => String(n).padStart(2, '0')
 

@@ -8,7 +8,14 @@ import { Cover } from './Cover'
 import CurrentSong from './CurrentSong'
 import Controls from './Controls'
 
-const Player = ({ song, status, prevSong, nextSong }) =>
+type Props = {
+	song: Song,
+	status: MpcStatus,
+	prevSong: typeof prevSong,
+	nextSong: typeof nextSong,
+}
+
+const Player = ({ song, status, prevSong, nextSong }: Props) =>
 	div('.player', [
 		button('.prev-song', { onClick: prevSong }, [
 			i('.material-icons', 'skip_previous')]),

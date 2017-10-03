@@ -6,7 +6,14 @@ import { a, button, div, i } from 'react-hyperscript-helpers'
 
 import { togglePlay, toggleRandom } from '../actions'
 
-const Controls = ({ song, status, togglePlay, toggleRandom }) => {
+type Props = {
+	status: MpcStatus,
+	song: Song,
+	togglePlay: typeof togglePlay,
+	toggleRandom: typeof toggleRandom,
+}
+
+const Controls = ({ song, status, togglePlay, toggleRandom }: Props) => {
 	const { artist, title } = song
 	const youtube = 'https://www.youtube.com/results?search_query=' + encodeURIComponent(artist + ' ' + title)
 	const random = cx('material-icons', {'material-enabled' : status.random})

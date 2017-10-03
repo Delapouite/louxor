@@ -54,7 +54,7 @@ export const fetchCurrentAlbum = () => ({ type: SEND_MPC_QUERY, command: 'curren
 
 // ui
 // tag = 'artist' or 'date'
-export const toggleAlbums = (tag: ?string, force: boolean) => ({ type: TOGGLE_ALBUMS, tag, force })
+export const toggleAlbums = (tag: ?string, force?: boolean) => ({ type: TOGGLE_ALBUMS, tag, force })
 export const changeRows = (diff: number) => ({ type: CHANGE_ROWS, diff })
 export const toggleAnimation = () => ({ type: TOGGLE_ANIMATION })
 export const flip = () => ({ type: FLIP })
