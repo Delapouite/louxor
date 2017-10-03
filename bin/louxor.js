@@ -12,8 +12,6 @@ const argv = require('yargs')
 		type: 'boolean',
 		default: false
 	})
-	.option('h', { alias: 'help' })
-	.help('h')
 	.argv
 
 serve(argv)

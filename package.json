@@ -58,7 +58,7 @@
     "socket.io-client": "^2.0.3",
     "stylus": "^0.54.5",
     "trumpet": "^1.7.2",
-    "yargs": "^8.0.2"
+    "yargs": "^9.0.1"
   },
   "devDependencies": {
     "babel-plugin-transform-flow-strip-types": "^6.22.0",
