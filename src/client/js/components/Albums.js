@@ -7,7 +7,7 @@ import { default as cx } from 'classnames'
 import { button, div, h, i, img, span } from 'react-hyperscript-helpers'
 import { Motion, TransitionMotion, spring } from 'react-motion'
 
-import { toggleAlbums, fetchAlbums, playId, changeRows } from '../actions'
+import { toggleAlbums, fetchAlbums, playId, changeRows, playArtist, playDate } from '../actions'
 import { getCoverURL } from './Cover'
 import YearPicker from './YearPicker'
 
@@ -36,6 +36,8 @@ type AlbumsProps = {
 	changeRows: typeof changeRows,
 	fetchAlbums: typeof fetchAlbums,
 	toggleAlbums: typeof toggleAlbums,
+	playArtist: typeof playArtist,
+	playDate: typeof playDate,
 }
 
 class Albums extends Component<AlbumsProps> {
@@ -66,6 +68,15 @@ class Albums extends Component<AlbumsProps> {
 
 	renderButtons () {
 		return div('.buttons', [
+
+			button('.material-button',
+				{ onClick: () => {
+					this.props.tag === 'date'
+					? this.props.playDate(this.date)
+					: this.props.playArtist(this.props.song.artist)
+				} }, [
+				i('.material-icons', 'playlist_play') ]),
+
 			!this.props.albums ? null : span(`${this.props.albums.length} albums`),
 
 			this.props.tag !== 'date'
@@ -155,4 +166,4 @@ const mapStateToProps = ({ mpc, ui }) => ({
 	rows: ui.rows,
 })
 
-export default connect(mapStateToProps, { toggleAlbums, fetchAlbums, changeRows })(Albums)
+export default connect(mapStateToProps, { toggleAlbums, fetchAlbums, changeRows, playArtist, playDate })(Albums)

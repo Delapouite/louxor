@@ -7,7 +7,7 @@ const log = require('debug')('io')
 const mpc = require('./mpc')
 
 const WHITE_LISTS = {
-	COMMANDS: ['playId'].concat(PLAYBACK, OPTIONS_TOGGLES),
+	COMMANDS: ['playId', 'playArtist', 'playDate'].concat(PLAYBACK, OPTIONS_TOGGLES),
 	QUERIES: ['artist', 'currentAlbum', 'date']
 }
 
