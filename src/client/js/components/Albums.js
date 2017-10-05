@@ -9,6 +9,7 @@ import { Motion, TransitionMotion, spring } from 'react-motion'
 
 import { toggleAlbums, fetchAlbums, playId, changeRows } from '../actions'
 import { getCoverURL } from './Cover'
+import YearPicker from './YearPicker'
 
 const _Album = ({ album, currentAlbum, tag, playId, style }) => {
 	const cn = cx('album', { 'current-album': currentAlbum === album.title })
@@ -40,6 +41,9 @@ type AlbumsProps = {
 class Albums extends Component<AlbumsProps> {
 
 	date = 0
+	state = {
+		showYearPicker: false
+	}
 
 	componentWillReceiveProps ({ show, song, tag }) {
 		if (!show) return
@@ -56,16 +60,30 @@ class Albums extends Component<AlbumsProps> {
 		this.props.fetchAlbums(song, tag)
 	}
 
+	toggleYearPicker () {
+		this.setState({ showYearPicker: !this.state.showYearPicker })
+	}
+
 	renderButtons () {
 		return div('.buttons', [
 			!this.props.albums ? null : span(`${this.props.albums.length} albums`),
-			this.props.tag !== 'date' ? span(this.props.song.artist) : span(this.date),
+
+			this.props.tag !== 'date'
+				? span(this.props.song.artist)
+				: div('.year-picker-toggle', [
+					span({ onClick: () => this.toggleYearPicker() }, this.date),
+					this.state.showYearPicker && h(YearPicker, {
+						date: this.date,
+						onPick: (date) => this.fetchAlbums({...this.props.song, date }, 'date'),
+					}) ]),
+
 			this.props.tag !== 'date' ? null : button('.material-button',
 				{ onClick: () => this.fetchAlbums({...this.props.song, date: this.date - 1 }, 'date') }, [
 				i('.material-icons', 'keyboard_arrow_left') ]),
 			this.props.tag !== 'date' ? null : button('.material-button',
 				{ onClick: () => this.fetchAlbums({...this.props.song, date: this.date + 1 }, 'date') }, [
 				i('.material-icons', 'keyboard_arrow_right') ]),
+
 			this.props.rows <= 1 ? null : button('.material-button',
 				{ onClick: () => this.props.changeRows(-1) }, [
 				i('.material-icons', 'vertical_align_bottom') ]),

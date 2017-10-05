@@ -59,10 +59,46 @@
 	right: 0
 	top: -50px
 
-	span {
+	> div, > span {
 		margin-right: 1em
 		font-size: 2em
 	}
 }
 
+.year-picker-toggle {
+	position: relative;
+}
 
+.year-picker-toggle > span {
+	cursor: pointer;
+}
+
+.year-picker {
+	background: $trans
+	display: flex;
+	height: 200px;
+	left: -5px;
+	position: absolute;
+	top: -205px
+}
+
+.year-picker-decade,
+.year-picker-digit {
+	cursor: pointer;
+	padding: 5px;
+}
+
+.year-picker .selected {
+	background: white;
+	color: black;
+}
+
+.year-picker-button {
+	display: flex;
+	align-items: center;
+	padding: 5px;
+}
+
+.year-picker-button button {
+	margin: 0;
+}
