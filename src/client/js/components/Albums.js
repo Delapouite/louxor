@@ -43,7 +43,12 @@ type AlbumsProps = {
 	loadPlaylist: typeof loadPlaylist
 }
 
-class Albums extends Component<AlbumsProps> {
+type AlbumsState = {
+	showYearPicker: boolean,
+	songsCount: number,
+}
+
+class Albums extends Component<AlbumsProps, AlbumsState> {
 
 	date = 0
 	state = {

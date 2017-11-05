@@ -8,8 +8,13 @@ type Props = {
 	onPick: (number) => any,
 }
 
-class YearPicker extends Component<Props> {
-	constructor (...args) {
+type State = {
+	decade: number,
+	digit: number,
+}
+
+class YearPicker extends Component<Props, State> {
+	constructor (...args: any) {
 		super(...args)
 		this.state = {
 			decade: Math.trunc(this.props.date / 10),
