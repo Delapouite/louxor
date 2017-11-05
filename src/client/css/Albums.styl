@@ -59,46 +59,68 @@
 	right: 0
 	top: -50px
 
-	> div, > span {
+	.Select, > span {
 		margin-right: 1em
 		font-size: 2em
+	}
+
+	.Select {
+		width: 200px
+	}
+	.Select-control {
+		background: transparent
+		border: none
+	}
+	.Select-menu-outer {
+		background: black
+		border: none
+	}
+	.Select-option {
+		background: transparent
+		color: #ccc
+		font-size: .6em
+	}
+	.Select-option.is-focused {
+		color: white
 	}
 }
 
 .year-picker-toggle {
-	position: relative;
+	position: relative
 }
 
 .year-picker-toggle > span {
-	cursor: pointer;
+	cursor: pointer
+	font-size: 2em
 }
 
 .year-picker {
 	background: $trans
-	display: flex;
-	height: 200px;
-	left: -5px;
-	position: absolute;
+	display: flex
+	font-size: 2em
+	height: 200px
+	left: -5px
+	position: absolute
 	top: -205px
 }
 
 .year-picker-decade,
 .year-picker-digit {
-	cursor: pointer;
-	padding: 5px;
+	cursor: pointer
+	padding: 5px
 }
 
 .year-picker .selected {
-	background: white;
-	color: black;
+	background: white
+	color: black
 }
 
 .year-picker-button {
-	display: flex;
-	align-items: center;
-	padding: 5px;
+	display: flex
+	align-items: center
+	padding: 5px
 }
 
 .year-picker-button button {
-	margin: 0;
+	margin: 0
 }

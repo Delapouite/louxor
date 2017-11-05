@@ -64,7 +64,7 @@ app.get('/art/:songFile?', (req, res) => {
 	const stats = COVER_FORMATS.map((ext) =>
 		stat(MUSIC_ROOT + coverPath + ext).then(() => ext))
 
-	Promise.some(stats, 1).then(([format]) =>
+	Promise.any(stats).then(format =>
 		sendCover(res, coverPath + format, size))
 	.catch(() => sendDefaultCover(res))
 })

@@ -6,8 +6,10 @@ import { connect } from 'react-redux'
 import { default as cx } from 'classnames'
 import { button, div, h, i, img, span } from 'react-hyperscript-helpers'
 import { Motion, TransitionMotion, spring } from 'react-motion'
+import Select from 'react-select'
 
-import { toggleAlbums, fetchAlbums, playId, changeRows, playArtist, playDate } from '../actions'
+import { toggleAlbums, fetchAlbums, playId,
+	changeRows, playArtist, playDate, loadPlaylist } from '../actions'
 import { getCoverURL } from './Cover'
 import YearPicker from './YearPicker'
 
@@ -38,16 +40,18 @@ type AlbumsProps = {
 	toggleAlbums: typeof toggleAlbums,
 	playArtist: typeof playArtist,
 	playDate: typeof playDate,
+	loadPlaylist: typeof loadPlaylist
 }
 
 class Albums extends Component<AlbumsProps> {
 
 	date = 0
 	state = {
-		showYearPicker: false
+		showYearPicker: false,
+		songsCount: 0,
 	}
 
-	componentWillReceiveProps ({ show, song, tag }) {
+	componentWillReceiveProps ({ show, song, tag, albums }) {
 		if (!show) return
 
 		if (!this.props.show
@@ -55,6 +59,11 @@ class Albums extends Component<AlbumsProps> {
 			|| this.props.tag !== tag) {
 			this.fetchAlbums(song, tag)
 		}
+		if (!albums) return
+
+		const songsCount = albums.reduce((acc, a) => acc + a.songs.length, 0)
+
+		this.setState({ songsCount })
 	}
 
 	fetchAlbums (song, tag) {
@@ -69,6 +78,16 @@ class Albums extends Component<AlbumsProps> {
 	renderButtons () {
 		return div('.buttons', [
 
+			h(Select, {
+				searchable: false,
+				placeholder: '2 playlists…',
+				options: [
+					{ value: 'main', label: 'main'},
+					{ value: 'favs', label: 'favs'}
+				],
+				onChange: ({ value }) => this.props.loadPlaylist(value),
+			}),
+
 			button('.material-button',
 				{ onClick: () => {
 					this.props.tag === 'date'
@@ -77,7 +96,8 @@ class Albums extends Component<AlbumsProps> {
 				} }, [
 				i('.material-icons', 'playlist_play') ]),
 
-			!this.props.albums ? null : span(`${this.props.albums.length} albums`),
+			this.props.albums && span(`${this.state.songsCount} songs`),
+			this.props.albums && span(`${this.props.albums.length} albums`),
 
 			this.props.tag !== 'date'
 				? span(this.props.song.artist)
@@ -166,4 +186,5 @@ const mapStateToProps = ({ mpc, ui }) => ({
 	rows: ui.rows,
 })
 
-export default connect(mapStateToProps, { toggleAlbums, fetchAlbums, changeRows, playArtist, playDate })(Albums)
+export default connect(mapStateToProps,
+	{ toggleAlbums, fetchAlbums, changeRows, playArtist, playDate, loadPlaylist })(Albums)

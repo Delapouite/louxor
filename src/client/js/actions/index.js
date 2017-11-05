@@ -40,6 +40,7 @@ export const nextSong = () => ({ type: SEND_MPC_COMMAND, command: 'next' })
 export const playId = (id: number) => ({ type: SEND_MPC_COMMAND, command: 'playId', args: [id] })
 export const playArtist = (artist: string) => ({ type: SEND_MPC_COMMAND, command: 'playArtist', args: [artist] })
 export const playDate = (date: number) => ({ type: SEND_MPC_COMMAND, command: 'playDate', args: [date] })
+export const loadPlaylist = (name: string) => ({ type: SEND_MPC_COMMAND, command: 'loadPlaylist', args: [name] })
 
 // mpc options
 export const toggleRandom = () => ({ type: SEND_MPC_COMMAND, command: 'random' })
