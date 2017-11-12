@@ -45,7 +45,7 @@ class Songs extends Component<Props> {
 	}
 
 	render () {
-		if (!this.props.album) return null
+		if (!this.props.album || !this.props.album.songs) return null
 
 		return (
 			div('.songs', [
