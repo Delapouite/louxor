@@ -41,5 +41,5 @@ const CurrentSong = ({ extended, song, flip, toggleAlbums, extend }: Props) => {
 
 export default connect(
 	({ ui }) => ({ extended: ui.extended }),
-	{ flip, toggleAlbums, extend }
+	{ flip, toggleAlbums, extend },
 )(CurrentSong)

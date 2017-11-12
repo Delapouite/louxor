@@ -9,8 +9,8 @@ import { fetchCurrentAlbum, flip, playId } from '../actions'
 import { toHHMMSS } from '../../../shared/util'
 
 type Props = {
-	album: Object,
-	song: Object,
+	album: Album,
+	song: Song,
 	// actions
 	fetchCurrentAlbum: typeof fetchCurrentAlbum,
 	flip: typeof flip,
@@ -60,7 +60,8 @@ class Songs extends Component<Props> {
 	}
 }
 
-const mapStateToProps = (state) => ({ album: state.mpc.currentAlbum })
-
-export default connect(mapStateToProps, { fetchCurrentAlbum, flip, playId })(Songs)
+export default connect(
+	({ mpc }) => ({ album: mpc.currentAlbum }),
+	{ fetchCurrentAlbum, flip, playId },
+)(Songs)
 

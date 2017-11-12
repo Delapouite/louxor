@@ -14,6 +14,12 @@ declare type Song = {
 	track: string,
 }
 
+declare type Album = {
+	title: string,
+	date: number,
+	songs: Array<Song>,
+}
+
 declare type MpcStatus = {
 	elapsed: number,
 	paused: boolean,

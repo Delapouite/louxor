@@ -25,13 +25,13 @@ const _Album = ({ album, currentAlbum, tag, playId, style }) => {
 	)
 }
 
-const Album = connect(null, { playId })(_Album)
+const AlbumCover = connect(null, { playId })(_Album)
 
 type AlbumsProps = {
-	albums: Array<Object>,
+	albums: Array<Album>,
 	animation: number,
 	rows: number,
-	song: Object,
+	song: Song,
 	show: boolean,
 	tag: 'date' | 'artist',
 	// actions
@@ -175,7 +175,7 @@ class Albums extends Component<AlbumsProps, AlbumsState> {
 			h(TransitionMotion, transitionProps, [(transitionStyles) =>
 				h(Motion, motionProps, [(motionStyle) =>
 					div('.albums', {key: 'albums', style: motionStyle}, [ transitionStyles.map(({ key, style, data }) =>
-						h(Album, { key, style, tag: this.props.tag, album: data, currentAlbum: this.props.song.album })),
+						h(AlbumCover, { key, style, tag: this.props.tag, album: data, currentAlbum: this.props.song.album })),
 						buttons,
 					])
 				])
@@ -184,12 +184,13 @@ class Albums extends Component<AlbumsProps, AlbumsState> {
 	}
 }
 
-const mapStateToProps = ({ mpc, ui }) => ({
-	albums: mpc.albums,
-	animation: ui.animation,
-	tag: ui.albumsTag,
-	rows: ui.rows,
-})
 
-export default connect(mapStateToProps,
-	{ toggleAlbums, fetchAlbums, changeRows, playArtist, playDate, loadPlaylist })(Albums)
+export default connect(
+	({ mpc, ui }) => ({
+		albums: mpc.albums,
+		animation: ui.animation,
+		tag: ui.albumsTag,
+		rows: ui.rows,
+	}),
+	{ toggleAlbums, fetchAlbums, changeRows, playArtist, playDate, loadPlaylist },
+)(Albums)
