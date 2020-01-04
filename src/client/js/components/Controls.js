@@ -16,6 +16,7 @@ type Props = {
 const Controls = ({ song, status, togglePlay, toggleRandom }: Props) => {
 	const { artist, title } = song
 	const youtube = 'https://www.youtube.com/results?search_query=' + encodeURIComponent(artist + ' ' + title)
+	const discogs = 'https://www.discogs.com/search/?q=' + encodeURIComponent(artist + ' ' + title)
 	const random = cx('material-icons', {'material-enabled' : status.random})
 
 	return (
@@ -25,7 +26,9 @@ const Controls = ({ song, status, togglePlay, toggleRandom }: Props) => {
 			button('.material-button', { onClick: toggleRandom }, [
 				i({ className: random }, 'shuffle') ]),
 			a('.material-button', { href: youtube }, [
-				i('.material-icons', 'ondemand_video') ]) ])
+				i('.material-icons', 'ondemand_video') ]),
+			a('.material-button', { href: discogs }, [
+				i('.material-icons', 'info') ]) ])
 	)
 }
 
