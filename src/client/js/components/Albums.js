@@ -19,6 +19,7 @@ const _Album = ({ album, currentAlbum, tag, playId, style }) => {
 	return (
 		div({ className: cn, style, onClick: () => playId(album.songs[0].id) }, [
 			img('.cover-art', { src: getCoverURL(album.songs[0], 100), alt: 'cover' }),
+			div('.album-songs-count', album.songs.length),
 			div('.album-title', album.title),
 			tag !== 'artist' && div('.album-artist', album.artist),
 			tag !=='date' && div('.album-date', album.date) ])
