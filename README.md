@@ -62,3 +62,6 @@ or with more control:
 `louxor -p 42000 -b`
 
 In this case `-b` opens your default web browser automatically on the port specified by `-p`
+
+Louxor is silent by default. It can be more verbose by setting the `DEBUG` env var to a comma separated
+list of the following options: `express`, `http`, `io` or `mpc`.
