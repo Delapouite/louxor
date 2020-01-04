@@ -19,7 +19,7 @@
     "postbuild:js": "terser build/bundle.js --compress --mangle -o build/bundle.js",
     "watch": "npm-run-all -p watch:*",
     "watch:css": "npm run stylus -- --watch",
-    "watch:js": "watchify -v -t babelify -o build/bundle.js src/client/js/index.js"
+    "watch:js": "watchify -v -t [ babelify --presets [ @babel/preset-env ] ] -o build/bundle.js src/client/js/index.js"
   },
   "keywords": [
     "mpd",
