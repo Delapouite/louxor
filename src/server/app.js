@@ -14,6 +14,7 @@ const mpc = require('./mpc')
 const { getTitle } = require('../shared/util')
 
 const MUSIC_ROOT = homedir() + '/music/'
+const SINGLES_DIR = '_'
 const COVER_FORMATS = ['.jpg', '.png']
 
 const app = express()
@@ -43,7 +44,7 @@ const sendCover = (res, p, size) => {
 		: gm(MUSIC_ROOT + p).resize(size, size) .stream().pipe(res)
 }
 
-const sendDefaultCover = (res) => sendCover(res, '!/cover.jpg')
+const sendDefaultCover = (res) => sendCover(res, `${SINGLES_DIR}/cover.jpg`)
 
 app.get('/art/:songFile?', (req, res) => {
 	const { songFile } = req.params
@@ -54,7 +55,7 @@ app.get('/art/:songFile?', (req, res) => {
 
 	const dir = path.dirname(songFile)
 	// TODO handle FLAC
-	const coverPath = dir === '!'
+	const coverPath = dir === SINGLES_DIR
 		? dir + '/covers/' + path.basename(songFile, '.mp3')
 		: dir + '/cover'
 
