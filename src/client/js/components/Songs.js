@@ -45,14 +45,25 @@ class Songs extends Component<Props> {
 	}
 
 	render () {
-		if (!this.props.album || !this.props.album.songs) return null
+		const { album } = this.props
+		if (!album || !album.songs) return null
+
+		const albumTitle = `${album.songs.length} – ${album.title} (${album.songs[0].date})`
+		const albumDuration = album.songs.reduce((acc, s) => {
+			acc += Number(s.duration)
+			return acc
+		}, 0)
 
 		return (
 			div('.songs', [
 				button('.material-button.close-songs',
 					{ key: 'close', onClick: () => this.props.flip() }, [
 					i('.material-icons', 'close')]),
-				ul(this.props.album.songs.map((s) =>
+				div('.current-album', [
+					span('.current-album-title', albumTitle),
+					span('.current-album-duration', toHHMMSS(albumDuration)),
+				]),
+				ul(album.songs.map((s) =>
 					li({ className: cx({ selected: this.props.song.title === s.title }),
 						key: s.id, onClick: () => this.props.playId(s.id) },
 						[ this.renderTitle(s) , span('.song-duration', toHHMMSS(s.time)) ]))) ])
