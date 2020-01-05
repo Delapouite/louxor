@@ -9,7 +9,7 @@ import App from './components/App'
 
 const store = createStore({ mpc: window.LOUXOR_STATE })
 
-store.dispatch({ type: 'CONNECT' })
+store.dispatch({ type: 'INIT_SOCKET' })
 
 ReactDOM.render(
 	h(Provider, { store }, [h(App)]),

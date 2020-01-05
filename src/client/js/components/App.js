@@ -47,14 +47,18 @@ class App extends Component<Props, State> {
 			h(DocumentTitle, { title: getTitle(status, currentSong) }, [
 				div('.app', [
 					h(BackgroundCover, { song: currentSong }),
-					button('.material-button.animation', { onClick: () => this.props.toggleAnimation() }, [
-						i('.material-icons', ui.animation ? 'flash_on' : 'flash_off')
-					]),
-					ui.albums && form('.search-form', { onSubmit: (e) => this.handleSubmit(e) }, [
-						input('.search-input', { onChange: ({ target }) => { this.setState({ search: target.value }) }, value: this.state.search })
-					]),
-					!screenfull.isFullscreen && button('.material-button.fullscreen', { onClick: fullScreen }, [
-						i('.material-icons', 'fullscreen')
+					h('header', { className: 'app-header' }, [
+						// TODO: reenable the animation feature
+						false && button('.material-button.animation', { onClick: () => this.props.toggleAnimation() }, [
+							i('.material-icons', ui.animation ? 'flash_on' : 'flash_off')
+						]),
+						ui.albums && form('.search-form', { onSubmit: (e) => this.handleSubmit(e) }, [
+							input('.search-input', { onChange: ({ target }) => { this.setState({ search: target.value }) }, value: this.state.search })
+						]),
+						!ui.connected && button('.material-button', [ i('.material-icons', 'wifi_off') ]),
+						!screenfull.isFullscreen && button('.material-button.fullscreen', { onClick: fullScreen }, [
+							i('.material-icons', 'fullscreen')
+						]),
 					]),
 					h(Player, { song: currentSong, status }),
 					h(Albums, { song: currentSong, show: ui.albums }) ]) ])

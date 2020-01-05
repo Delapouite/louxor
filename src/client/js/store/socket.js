@@ -1,7 +1,9 @@
 // @flow
 
 import io from 'socket.io-client'
-import { CONNECT, SEND_MPC_COMMAND, SEND_MPC_QUERY, receiveMpcState, receiveResults } from '../actions'
+import { INIT_SOCKET, SEND_MPC_COMMAND, SEND_MPC_QUERY,
+	connect, disconnect,
+	receiveMpcState, receiveResults } from '../actions'
 
 let socket = null
 
@@ -13,12 +15,16 @@ type Action = {
 
 export default (store: { dispatch: Function}) => (next: Function) => (action: Action) => {
 	switch (action.type) {
-		case CONNECT:
+		case INIT_SOCKET:
 			if (socket != null) {
 				socket.close()
 			}
 
 			socket = io.connect()
+			socket.on('connect', () => {
+				store.dispatch(connect())
+			})
+
 			socket.on('mpc.state', (state) => {
 				store.dispatch(receiveMpcState(state))
 			})
@@ -26,6 +32,11 @@ export default (store: { dispatch: Function}) => (next: Function) => (action: Ac
 			socket.on('mpc.results', ({ command, results }) => {
 				store.dispatch(receiveResults(command, results))
 			})
+
+			socket.on('disconnect', () => {
+				store.dispatch(disconnect())
+			})
+
 			break
 
 		// one shot

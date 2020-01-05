@@ -1,9 +1,11 @@
 // @flow
 
 import { FLIP, TOGGLE_ALBUMS, EXTEND,
-	TOGGLE_ANIMATION, CHANGE_ROWS } from '../actions/'
+	TOGGLE_ANIMATION, CHANGE_ROWS,
+	CONNECT, DISCONNECT } from '../actions/'
 
 type State = {
+	connected: boolean,
 	albums: boolean,
 	albumsTag: ?string,
 	rows: number,
@@ -13,9 +15,10 @@ type State = {
 }
 
 const initialState = {
+	connected: false, // socket connected?
 	albums: false, // bottom panel opened?
 	albumsTag: null, // what's inside the bottom panel? albums by artist or date?
-	rows: 1, // how many rows in the albums panel ?
+	rows: 1, // how many rows in the albums panel?
 	flipped: false, // songs list visible?
 	animation: false, // disable for low end devices
 	extended: false, // show extra info like track, duration…
@@ -23,8 +26,14 @@ const initialState = {
 
 export default (state: State = initialState, action: Object) => {
 	switch (action.type) {
+		case CONNECT:
+			return {...state, connected: true}
+
+		case DISCONNECT:
+			return {...state, connected: false}
+
 		case TOGGLE_ALBUMS:
-			var albums = state.albumsTag
+			let albums = state.albumsTag
 			if (typeof action.force == 'boolean') {
 				albums = action.force
 			} else if (!state.albumsTag || action.tag === state.albumsTag) {

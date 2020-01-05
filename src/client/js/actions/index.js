@@ -1,7 +1,9 @@
 // @flow
 
 // network
+export const INIT_SOCKET = 'INIT_SOCKET'
 export const CONNECT = 'CONNECT'
+export const DISCONNECT = 'DISCONNECT'
 
 export const SEND_MPC_COMMAND = 'SEND_MPC_COMMAND'
 export const SEND_MPC_QUERY = 'SEND_MPC_QUERY'
@@ -17,6 +19,9 @@ export const TOGGLE_ANIMATION = 'TOGGLE_ANIMATION'
 export const FLIP = 'FLIP'
 export const EXTEND = 'EXTEND'
 
+// network
+export const connect = () => ({ type: CONNECT })
+export const disconnect = () => ({ type: DISCONNECT })
 
 export const receiveMpcState = (state: MpcState) => ({ type: FETCH_MPC_STATE_SUCCESS, state })
 export const receiveResults = (command: string, results: any) => {
