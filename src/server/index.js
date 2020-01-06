@@ -2,7 +2,7 @@
 
 const os = require('os')
 const http = require('http')
-const open = require('opn')
+const open = require('open')
 const log = require('debug')('http')
 
 const app = require('./app')
