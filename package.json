@@ -59,7 +59,7 @@
     "socket.io-client": "^2.3.0",
     "terser": "^4.5.1",
     "trumpet": "^1.7.2",
-    "yargs": "^10.1.2"
+    "yargs": "^15.1.0"
   },
   "devDependencies": {
     "@babel/core": "^7.0.0",
