@@ -26,13 +26,13 @@ const initialState: State = {
 export default (state: State = initialState, action: Action) => {
 	switch (action.type) {
 		case FETCH_MPC_STATE_SUCCESS:
-			return Object.assign({}, state, action.state)
+			return {...state, ...action.state}
 
 		case FETCH_ALBUMS_SUCCESS:
-			return Object.assign({}, state, {albums: action.albums })
+			return {...state, albums: action.albums}
 
 		case FETCH_CURRENT_ALBUM_SUCCESS:
-			return Object.assign({}, state, {currentAlbum: action.currentAlbum })
+			return {...state, currentAlbum: action.currentAlbum}
 
 		default:
 			return state

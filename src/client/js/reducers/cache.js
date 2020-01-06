@@ -23,10 +23,10 @@ export default (state: CacheState = initialState, action: Action) => {
 			if (!action.albums || !action.albums.length) return state
 			const cacheKey = `${action.tag}-${action.albums[0][action.tag]}`
 
-			return Object.assign({}, state, {[cacheKey]: {
+			return {...state, [cacheKey]: {
 				ts: Date.now(),
 				data: action.albums
-			}})
+			}}
 		}
 
 		default:
