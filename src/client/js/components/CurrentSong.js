@@ -24,18 +24,19 @@ const CurrentSong = ({ extended, song, flip, toggleAlbums, extend }: Props) => {
 			div('.current-song-artist', [
 				span('.current-song-by', 'by'),
 				span({ onClick: () => toggleAlbums('artist') }, artist) ]),
-			album !== 'singles' &&
-				extended && span('.current-song-track', `#${track}`),
-			album !== 'singles' &&
-				span('.current-song-album', [
-					span('.current-song-on', 'on'),
-					span({ onClick: flip }, album)]),
-			date &&
-				span('.current-song-date', [
-					span('.current-song-in', 'in'),
-					span({ onClick: () => toggleAlbums('date') }, date)]),
-			extended && span('.current-song-sep', '|'),
-			extended && span('.current-song-duration', `(${toHHMMSS(time)})`) ])
+			div('.current-song-numbers', [
+				album !== 'singles' &&
+					extended && span('.current-song-track', `#${track}`),
+				album !== 'singles' &&
+					span('.current-song-album', [
+						span('.current-song-on', 'on'),
+						span({ onClick: flip }, album)]),
+				date &&
+					span('.current-song-date', [
+						span('.current-song-in', 'in'),
+						span({ onClick: () => toggleAlbums('date') }, date)]),
+				extended && span('.current-song-sep', '|'),
+				extended && span('.current-song-duration', `(${toHHMMSS(time)})`) ]) ])
 	)
 }
 
