@@ -41,7 +41,7 @@ class App extends Component<Props, State> {
 	render () {
 		const { ui } = this.props
 		const { currentSong, status } = this.props.mpc
-		const fullScreen = () => { if (screenfull.enabled) screenfull.request() }
+		const fullScreen = () => { if (screenfull.isEnabled) screenfull.request() }
 
 		return (
 			h(DocumentTitle, { title: getTitle(status, currentSong) }, [
